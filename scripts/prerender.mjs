@@ -24,7 +24,7 @@ try {
     .replace(/<title>.*?<\/title>/, "<title>Sign in — Money Prophet</title>")
     .replace(
       /<link rel="canonical"[^>]*>/,
-      '<link rel="canonical" href="https://moneyprophet.paulworks.online/sign_in" />',
+      '<link rel="canonical" href="https://expense.paulworks.net/sign_in" />',
     );
   await mkdir("build/sign_in", { recursive: true });
   await writeFile("build/sign_in/index.html", privateTemplate);

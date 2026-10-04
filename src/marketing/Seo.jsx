@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-const origin = "https://moneyprophet.paulworks.online";
+const origin = "https://expense.paulworks.net";
 export default function Seo() {
   const { pathname } = useLocation();
   useEffect(() => {
