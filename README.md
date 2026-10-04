@@ -1,25 +1,102 @@
 # Money Prophet web
 
-Standalone React/Vite app extracted from paulworks.online, including the current Quiet workspace UI, expense entry, reports, spending plans, map, settings, and authentication.
+A calm workspace for personal finances: track expenses, plan monthly category budgets and fixed bills, and see what is left to spend.
 
-## Run locally
+**Website:** [expense.paulworks.net](https://expense.paulworks.net/) · **[Deployment guide](docs/deployment.md)**
 
-Use Node 24.15 or later. Run `npm ci`, then `npm run dev`. The app runs at http://localhost:3001. Start the Rails API separately at http://localhost:3000. Copy `.env.example` to `.env.development` and configure a Google Maps browser key if you use the map. Keep keys out of Git. The portfolio can run separately on port 3002.
+## Features
 
-`/` is the public landing page; `/sign_in` opens Google sign-in. `npm run build` writes `build/`; `npm run preview` serves the production build locally.
+- Public landing page and Google sign-in.
+- Overview with daily/weekly spending, remaining category budget, quotas, and detailed reports.
+- Expense entry by category, plain text, or receipt; quick text entry from Overview.
+- Expense history with browse/edit modes, search, sorting, and CSV export.
+- Monthly category budgets and fixed bill planning with category icons.
+- Location-aware expense map, currency preferences, and amount visibility controls.
+- Quiet workspace design with responsive layouts and light/dark workspace themes.
 
-## Subdomain migration
+Remaining category budget excludes fixed bills; the overall monthly spending total includes them. Location is included when browser permission is granted, and entries can still be saved without it.
 
-1. Create a remote repository and push this folder. No remote or production deployment is configured here.
-2. Configure the production build environment: `VITE_API_ROOT` is the API origin without `/api/v1`; optionally set `VITE_GOOGLE_MAPS_KEY` and a dedicated `VITE_GTM_CONTAINER_ID`. Vite variables are public browser configuration, never server secrets.
-3. Deploy `build/` to the chosen subdomain with HTTPS. Serve the generated `/index.html` for the landing page and `/sign_in/index.html` for sign-in. Configure SPA fallback to `/app.html` for workspace and unknown routes; serve `/privacy.html` and static assets directly.
-4. Register `https://moneyprophet.paulworks.online/sign_in` in the Google OAuth client. Update the API's `config/initializers/constants.rb` `GOOGLE_REDIRECT_URI` to exactly that URL (currently production uses `https://paulworks.net/sign_in`). Local development expects `http://localhost:3001/sign_in`. Restart the API after changing it.
-5. Configure API CORS for the frontend origin. The current API permits all origins; review its allowlist before production. Restrict the Maps key to the new origin.
-6. Set `VITE_MONEY_PROPHET_URL=https://moneyprophet.paulworks.online` when building the portfolio. Its former app routes forward to this origin while keeping paths and query parameters.
-7. Check sign-in/callback, logout, expenses, budgets, fixed bills, currency settings, map and privacy policy on the deployed host. Sessions stored under the old domain will not transfer; users sign in again.
+## Quick start
 
-The original portfolio source is retained for recovery. The new app contains no portfolio Home or Blog pages and has no dependency on the old checkout. No hosting, DNS, OAuth-console, or API production settings have been changed.
+Requirements: **Node.js 24.15+**, npm, and a running Money Prophet Rails API. The frontend does not start or host the API.
 
-## Search and sharing
+```bash
+npm ci
+cp .env.example .env.development.local
+npm run dev
+```
 
-Build pre-renders the landing page into HTML. Titles, descriptions, canonical URL, Open Graph/Twitter tags, WebSite structured data, sitemap, and robots file use `https://moneyprophet.paulworks.online`. The generated `app.html` and sign-in HTML carry `noindex`; serve `app.html` for private routes instead of the landing HTML. Private data remains protected by authentication, not robots rules. Register the sitemap in Search Console after deployment. Real Google OAuth and search indexing require the production host setup.
+Open [localhost:3001](http://localhost:3001/). Start the API separately on `http://localhost:3000`. Port 3001 is fixed to match the local Google OAuth callback; stop another app using that port first.
+
+## Configuration
+
+| Variable                | Purpose                                                                             |
+| ----------------------- | ----------------------------------------------------------------------------------- |
+| `VITE_API_ROOT`         | API origin, such as `http://localhost:3000`, without `/api/v1` or a trailing slash. |
+| `VITE_GOOGLE_MAPS_KEY`  | Optional browser Maps key for the map. Restrict it to allowed website origins.      |
+| `VITE_GTM_CONTAINER_ID` | Optional Google Tag Manager container. Analytics initializes only when configured.  |
+
+Use `.env.development.local` locally and `.env.production.local` for production. These files are ignored by Git. Restart Vite after configuration changes; rebuild to change production values.
+
+**All `VITE_` values are embedded in browser code. Never put OAuth client secrets, server API keys, or credentials here.** Google OAuth client credentials belong on the Rails server.
+
+## Commands
+
+| Command           | Action                                                                              |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| `npm run dev`     | Start the local Vite server on port 3001.                                           |
+| `npm run lint`    | Run ESLint over JavaScript and JSX source.                                          |
+| `npm run build`   | Build into `build/`, pre-render the landing page, and generate private HTML shells. |
+| `npm run preview` | Preview the production build locally.                                               |
+
+`start` is an alias for the development server. Despite its name, `start:prod` also starts Vite development mode; use the static build for deployment. There is currently no configured automated test command. Validate affected browser flows as well as lint and build.
+
+## Project structure
+
+```text
+src/
+  marketing/       Landing page, public styles, route metadata
+  pages/           Route definitions and page wrappers
+  containers/      Feature screens and API hooks
+  components/      Shared controls, forms, icons, planning UI
+  contexts/        Theme state
+  utils/           API client, authentication, currency, dates, location
+scripts/
+  prerender.mjs    Generates landing HTML and noindex app shells
+public/            Icons, social preview, privacy policy, sitemap, robots
+```
+
+React 19 and Vite power the app. UI uses MUI, Tailwind, styled-components, and Lucide; forms use React Final Form, charts use Recharts, and maps use Leaflet.
+
+The Axios client calls `/api/v1/`, adds the saved bearer token, and handles token refresh. Private routes require a saved session; the API must enforce authorization independently. Google redirects to `/sign_in`, then the frontend exchanges the code through the API.
+
+## Routes
+
+| Route                        | Page                                     |
+| ---------------------------- | ---------------------------------------- |
+| `/`                          | Public landing page                      |
+| `/sign_in`                   | Google sign-in and callback              |
+| `/dashboard`                 | Overview                                 |
+| `/expenses`                  | Expense history                          |
+| `/new`, `/chat`, `/new/bill` | Manual, text, and receipt entry          |
+| `/budget`, `/r_expenses`     | Monthly category budgets and fixed bills |
+| `/map`, `/settings`          | Expense map and preferences              |
+| `/privacy.html`              | Static privacy policy                    |
+
+Legacy report and planning routes are retained, including insights and forecasts; some are not shown in navigation.
+
+## Deployment and SEO
+
+Deploy the **contents of `build/`** to private S3 behind CloudFront, with Route 53 pointing the subdomain to the distribution. Follow the [deployment guide](docs/deployment.md) for certificate reuse, OAC, route rewriting, Google OAuth, and troubleshooting.
+
+The landing page is pre-rendered into `index.html` for visitors and crawlers. Sign-in and workspace shells carry `noindex`. The build includes canonical URLs, Open Graph/Twitter metadata, WebSite structured data, a sitemap, and app icons. SEO URLs currently target `https://moneyprophet.paulworks.online`; update them if the domain changes.
+
+## Related projects
+
+- `../money_prophet`: Rails API, OAuth credentials, and financial calculations.
+- `../money_prophet_mobile`: iOS app, also referred to as `money_prophet_ios`.
+- `../paulworks.online`: Portfolio; former Money Prophet routes forward to this app.
+
+This app was extracted from the portfolio and runs independently. Deploy the new app before publishing portfolio forwarding routes. Browser sessions under the old domain do not transfer; users sign in again.
+
+For coding conventions, read [AGENTS.md](AGENTS.md).
