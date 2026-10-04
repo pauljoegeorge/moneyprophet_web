@@ -104,3 +104,22 @@ For coding conventions, read [AGENTS.md](AGENTS.md).
 ## Public repository hygiene
 
 Keep infrastructure identifiers and credentials out of tracked files: use placeholders for bucket names, AWS account IDs, distribution IDs, ARNs, private endpoints, and local deployment profiles. Configure actual values in ignored environment files, private deployment configuration, or CI secrets. Public website URLs and generic service setup instructions may remain public. Never upload `.env` files, production build output, logs, or personal financial data to the repository.
+
+## Deploy with one command
+
+One-time setup:
+
+```bash
+cp .deploy.env.example .deploy.env
+chmod 600 .deploy.env
+```
+
+Fill in `S3_BUCKET` and `CLOUDFRONT_DISTRIBUTION_ID` in `.deploy.env`, plus optional `AWS_PROFILE`. Actual values stay in this ignored file. Configure AWS credentials separately using your usual AWS CLI login/profile. Production Vite configuration belongs in `.env.production.local`.
+
+Run from the repository:
+
+```bash
+sh deploy.sh
+```
+
+The script builds, checks the generated HTML, uploads to S3, invalidates all CloudFront paths, and waits for invalidation completion. It stops on failure and retains older hashed assets for open clients. Requires installed npm dependencies and AWS CLI permissions to upload to the bucket and create/read invalidations. Existing bucket, CloudFront, DNS, and OAuth setup must already be configured; see the [deployment guide](docs/deployment.md).

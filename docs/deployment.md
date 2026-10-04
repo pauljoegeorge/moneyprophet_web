@@ -67,7 +67,7 @@ Create a distribution with these settings:
 | Viewer protocol       | Redirect HTTP to HTTPS                                               |
 | Allowed methods       | GET, HEAD                                                            |
 | Compression           | Enabled                                                              |
-| Alternate domain name | `app.example.com`                                      |
+| Alternate domain name | `app.example.com`                                                    |
 | Certificate           | Eligible certificate from step 1                                     |
 | Default root object   | `index.html`                                                         |
 
@@ -137,6 +137,8 @@ Once the new app works, deploy the updated portfolio forwarding routes. They use
 Submit `https://app.example.com/sitemap.xml` in Google Search Console using an eligible verified property. Sessions from the old domain do not transfer.
 
 ## Subsequent releases
+
+Use `sh deploy.sh` after filling in the ignored `.deploy.env` from `.deploy.env.example`. See the README for configuration. The script runs the build, upload, and invalidation, then waits for completion. The equivalent manual commands are below.
 
 ```bash
 npm run build

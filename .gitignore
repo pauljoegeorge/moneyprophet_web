@@ -10,7 +10,6 @@
 
 # production
 /build
-/deploy.sh
 # misc
 .DS_Store
 .env.local
@@ -29,3 +28,6 @@ yarn-error.log*
 .agents/
 graphify-out/
 
+
+# Private deployment configuration
+/.deploy.env
