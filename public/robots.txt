@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://moneyprophet.paulworks.online/sitemap.xml

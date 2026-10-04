@@ -1,0 +1,66 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier"],
+  "rules": {
+    "indent": ["warn", 2],
+    "linebreak-style": ["warn", "unix"],
+    "quotes": ["warn", "double", { "avoidEscape": true }],
+    "semi": ["warn", "always"],
+    "react/jsx-filename-extension": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "react/prop-types": "warn",
+    "react/destructuring-assignment": "warn",
+    "no-shadow": "warn",
+    "import/prefer-default-export": "off",
+    "no-restricted-syntax": "off",
+    "no-debugger": "off",
+    "no-console": "off",
+    "jsx-a11y/anchor-is-valid": 0,
+    "camelcase": "off",
+    "prettier/prettier": [
+      "warn",
+      {
+        "singleQuote": false,
+        "trailingComma": "es5",
+        "semi": true
+      }
+    ],
+    "no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": ".*"
+      }
+    ],
+    "no-use-before-define": [
+      "warn",
+      {
+        "functions": false
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false,
+        "packageDir": "./"
+      }
+    ]
+  }
+}

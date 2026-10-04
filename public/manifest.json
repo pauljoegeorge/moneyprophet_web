@@ -1,0 +1,25 @@
+{
+  "short_name": "Money Prophet",
+  "name": "Money Prophet",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "moneyProphet192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "moneyProphet512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#35674d",
+  "background_color": "#f5f6f2"
+}
