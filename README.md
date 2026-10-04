@@ -89,7 +89,7 @@ Legacy report and planning routes are retained, including insights and forecasts
 
 Deploy the **contents of `build/`** to private S3 behind CloudFront, with Route 53 pointing the subdomain to the distribution. Follow the [deployment guide](docs/deployment.md) for certificate reuse, OAC, route rewriting, Google OAuth, and troubleshooting.
 
-The landing page is pre-rendered into `index.html` for visitors and crawlers. Sign-in and workspace shells carry `noindex`. The build includes canonical URLs, Open Graph/Twitter metadata, WebSite structured data, a sitemap, and app icons. SEO URLs currently target `https://moneyprophet.paulworks.online`; update them if the domain changes.
+The landing page is pre-rendered into `index.html` for visitors and crawlers. Sign-in and workspace shells carry `noindex`. The build includes canonical URLs, Open Graph/Twitter metadata, WebSite structured data, a sitemap, and app icons. SEO URLs target the public website; keep them synchronized if the website domain changes.
 
 ## Related projects
 
@@ -100,3 +100,7 @@ The landing page is pre-rendered into `index.html` for visitors and crawlers. Si
 This app was extracted from the portfolio and runs independently. Deploy the new app before publishing portfolio forwarding routes. Browser sessions under the old domain do not transfer; users sign in again.
 
 For coding conventions, read [AGENTS.md](AGENTS.md).
+
+## Public repository hygiene
+
+Keep infrastructure identifiers and credentials out of tracked files: use placeholders for bucket names, AWS account IDs, distribution IDs, ARNs, private endpoints, and local deployment profiles. Configure actual values in ignored environment files, private deployment configuration, or CI secrets. Public website URLs and generic service setup instructions may remain public. Never upload `.env` files, production build output, logs, or personal financial data to the repository.
