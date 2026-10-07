@@ -9,7 +9,7 @@ export const Notify = {
   success: (message = "Saved successfully") => {
     toast.success(message, options);
   },
-  error: () => {
-    toast.error("Failed. Please try again", options);
+  error: (message = "Failed. Please try again") => {
+    toast.error(message, { ...options, autoClose: 8000 });
   },
 };

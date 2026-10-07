@@ -1,7 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Dialog from "@mui/material/Dialog";
-import { MessageCirclePlus, X, Sprout, CheckCircle2, Send } from "lucide-react";
+import { Link } from "react-router-dom";
+import {
+  MessageCirclePlus,
+  X,
+  Sprout,
+  CheckCircle2,
+  Send,
+  CircleHelp,
+} from "lucide-react";
+import { apiErrorMessage } from "../../../utils/apiError";
 import { post } from "../../../utils/api";
 import useExpenseLocation from "../../../utils/useExpenseLocation";
 import { PrimaryButton } from "../../../components/Button";
@@ -10,7 +19,7 @@ export default function QuickExpense({ onSaved }) {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState(false);
+  const [feedback, setFeedback] = useState(null);
   const [messages, setMessages] = useState([]);
   const location = useExpenseLocation(open);
   const pending = useRef(false);
@@ -27,16 +36,26 @@ export default function QuickExpense({ onSaved }) {
     if (!notes || pending.current) return;
     pending.current = true;
     setSaving(true);
-    setError(false);
+    setFeedback(null);
     try {
-      await post("auto_expenses", { expense: { notes, ...location } });
+      const response = await post("auto_expenses", {
+        expense: { notes, ...location },
+      });
+      if (response.notice) setFeedback({ ...response.notice, failed: false });
       sequence.current += 1;
       const message = { id: sequence.current, notes };
       setMessages((previous) => [...previous.slice(-3), message]);
       setDraft("");
       onSaved();
-    } catch {
-      setError(true);
+    } catch (requestError) {
+      setFeedback({
+        message: apiErrorMessage(
+          requestError,
+          "Couldn’t save. Please try again."
+        ),
+        actions: requestError.response?.data?.actions || [],
+        failed: true,
+      });
     } finally {
       pending.current = false;
       setSaving(false);
@@ -65,7 +84,6 @@ export default function QuickExpense({ onSaved }) {
         }}
         disableEscapeKeyDown={saving}
         aria-labelledby="quick-expense-title"
-        aria-describedby="quick-expense-description"
         container={() =>
           document.querySelector(".money-workspace") || document.body
         }
@@ -86,13 +104,20 @@ export default function QuickExpense({ onSaved }) {
             <span className="workspace-quick-mark">
               <Sprout size={20} />
             </span>
-            <div>
-              <h2 id="quick-expense-title">Quick expense</h2>
-              <p id="quick-expense-description">
-                Describe it. Save it. Stay here.
-              </p>
-            </div>
+            <h2 id="quick-expense-title">Quick expense</h2>
           </div>
+          <details className="workspace-quick-help">
+            <summary
+              className="workspace-icon-button"
+              aria-label="Quick expense help"
+            >
+              <CircleHelp size={19} aria-hidden="true" />
+            </summary>
+            <p>
+              Include an amount, like “Coffee 650”. Uses your account currency
+              and today’s date. Ctrl / ⌘ + Enter to save.
+            </p>
+          </details>
           <button
             type="button"
             className="workspace-icon-button"
@@ -103,49 +128,54 @@ export default function QuickExpense({ onSaved }) {
             <X size={19} />
           </button>
         </header>
-        <div className="workspace-quick-messages" ref={log}>
-          <div className="workspace-quick-bubble">
-            <p>What did you spend?</p>
-            <span>
-              Try “Coffee 650 at the corner café”. Use your account currency,
-              one expense at a time.
-            </span>
+        {messages.length > 0 && (
+          <div className="workspace-quick-messages" ref={log}>
+            {messages.map((message) => (
+              <div key={message.id}>
+                <p className="workspace-quick-bubble user">{message.notes}</p>
+                <p className="workspace-quick-confirmation" role="status">
+                  <CheckCircle2 size={16} />
+                  Saved.
+                </p>
+              </div>
+            ))}
           </div>
-          <p className="workspace-note workspace-quick-date">
-            Recorded for today, even if you’re viewing another month.
-          </p>
-          {messages.map((message) => (
-            <div key={message.id}>
-              <p className="workspace-quick-bubble user">{message.notes}</p>
-              <p className="workspace-quick-confirmation" role="status">
-                <CheckCircle2 size={16} />
-                Saved. Overview updated for this month.
-              </p>
-            </div>
-          ))}
-        </div>
+        )}
         <form
           className="workspace-quick-composer"
           onSubmit={submit}
           aria-busy={saving}
         >
-          {error && (
-            <p className="workspace-field-error" role="alert">
-              Couldn’t save this expense. Your text is still here—try again.
-            </p>
+          {feedback && (
+            <div
+              className="workspace-quick-feedback"
+              role={feedback.failed ? "alert" : "status"}
+            >
+              <p>{feedback.message}</p>
+              {(feedback.actions || []).map((action) => (
+                <Link
+                  key={action.href}
+                  className="workspace-button"
+                  to={action.href}
+                  onClick={() => setOpen(false)}
+                >
+                  {action.label}
+                </Link>
+              ))}
+            </div>
           )}
           <label htmlFor="quick-expense-notes">
-            Describe your expense
+            <span id="quick-expense-label">Expense</span>
             <textarea
               id="quick-expense-notes"
+              aria-labelledby="quick-expense-label"
               ref={input}
               rows={3}
               value={draft}
               disabled={saving}
-              placeholder="Coffee 650 at the corner café"
+              placeholder="Coffee 650"
               onChange={(event) => {
                 setDraft(event.target.value);
-                setError(false);
               }}
               onKeyDown={(event) => {
                 if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
@@ -156,10 +186,9 @@ export default function QuickExpense({ onSaved }) {
             />
           </label>
           <div>
-            <span className="workspace-note">Ctrl / ⌘ + Enter to save</span>
             <PrimaryButton type="submit" disabled={saving || !draft.trim()}>
               <Send size={15} />
-              {saving ? "Saving…" : "Save expense"}
+              {saving ? "Saving…" : "Save"}
             </PrimaryButton>
           </div>
         </form>

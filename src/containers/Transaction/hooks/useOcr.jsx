@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiErrorMessage } from "../../../utils/apiError";
 import { post } from "../../../utils/api";
 import { Notify } from "../../../components/Notify";
 
@@ -33,10 +34,17 @@ function useOcr() {
         setOcrResult(response.receipts[0]);
         Notify.success("Ready for review!");
       } else {
-        Notify.error("Running out of quota. Please try again after 3 hours.");
+        Notify.error(
+          apiErrorMessage(
+            { response: { data: response } },
+            "Couldn’t read this receipt. Please try again."
+          )
+        );
       }
-    } catch {
-      Notify.error("Running out of quota. Please try again after 3 hours.");
+    } catch (error) {
+      Notify.error(
+        apiErrorMessage(error, "Couldn’t read this receipt. Please try again.")
+      );
     }
   };
 

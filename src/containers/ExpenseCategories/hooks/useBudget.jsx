@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiErrorMessage } from "../../../utils/apiError";
 import { get, put } from "../../../utils/api";
 import { Notify } from "../../../components/Notify";
 
@@ -16,15 +17,15 @@ function useBudget() {
       setLoading(true);
       const data = {
         from: month,
-        categories: values.fixedExpenseCategories.map(item => ({ ...item }))
+        categories: values.fixedExpenseCategories.map((item) => ({ ...item })),
       };
       const response = await put("fixed_expense_categories", data);
       setFixedExpenseCategories(response);
       setLoading(false);
       Notify.success();
-    } catch {
+    } catch (error) {
       setLoading(false);
-      Notify.error();
+      Notify.error(apiErrorMessage(error));
     }
   };
 
@@ -45,9 +46,9 @@ function useBudget() {
 
       setLoading(false);
       Notify.success();
-    } catch {
+    } catch (error) {
       setLoading(false);
-      Notify.error();
+      Notify.error(apiErrorMessage(error));
     }
   };
 

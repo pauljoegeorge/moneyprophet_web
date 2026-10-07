@@ -2,7 +2,7 @@
 
 ## Scope and reading order
 
-This is the standalone React/Vite Money Prophet web app. This repository is intended to be public.
+`money_prophet_web` is the new, current web repository for Money Prophet. This is the standalone React/Vite Money Prophet web app. This repository is intended to be public.
 
 Read [README.md](README.md) for setup, [coding guidelines](docs/coding-guidelines.md) before implementation, and [deployment guide](docs/deployment.md) for hosting or authentication changes. `CLAUDE.md` points here so both assistants follow the same guidance.
 
@@ -33,3 +33,11 @@ Related repositories: `../money_prophet` is the Rails API; `../money_prophet_mob
 - For code changes, run relevant lint and `npm run build`; verify affected browser flows, narrow layouts, keyboard access, and theme behavior. Report failures and limits honestly. Documentation-only changes need formatting/link checks, not an app rebuild.
 
 Detailed conventions and domain rules: [docs/coding-guidelines.md](docs/coding-guidelines.md).
+
+## Product quality and server ownership
+
+- The API owns plan rules, quota checks, reset times, limit messages, and available next actions. Clients render returned messages/actions; never duplicate quota arithmetic, plan defaults, or policy wording.
+- Keep notices brief and actionable: state what happened, then the next valid step. Never suggest manual entry when the total daily quota is exhausted, or immediate retry for a quota that resets later.
+- When a successful write exhausts a quota, return and render a server notice immediately; do not wait for the next failed attempt.
+- Design frequent actions for repeat use. Keep the primary flow compact; put examples, instructions, and shortcuts in accessible optional help rather than repeating them every time.
+- Before claiming a flow works, trace all entry points and verify success, quota boundaries, failure, draft retention, recovery actions, keyboard access, and narrow layouts. Distinguish executed checks from unverified behavior; build/lint success does not verify a user flow.

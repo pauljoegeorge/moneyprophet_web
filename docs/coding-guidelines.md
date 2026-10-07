@@ -80,3 +80,7 @@ These rules apply to Money Prophet web. Follow the existing implementation where
 - There is no configured automated test command today. Do not claim tests ran if only lint/build ran. Add meaningful regression coverage for substantial logic changes when suitable; avoid tests that merely mirror trivial styling.
 - Avoid broad formatting churn. Preserve unrelated changes and do not commit, push, deploy, or change cloud resources unless the task authorizes those actions.
 - Finish with the concrete changes, checks performed, and any unresolved limitations. Do not describe mocked OAuth checks as proof that production credentials work.
+
+## Repeated workflows and quota feedback
+
+Quota enforcement, user-facing quota copy, and available recovery actions come from the API. Render both success notices and failure responses without client plan comparisons. Keep messages to one or two short sentences and suggest only actions the server confirms are available. Keep frequent dialogs focused on entry and save; examples, date semantics, and shortcuts belong in optional help that works with mouse, keyboard, and touch. Verify all affected entry points and boundary states before reporting behavior as working.

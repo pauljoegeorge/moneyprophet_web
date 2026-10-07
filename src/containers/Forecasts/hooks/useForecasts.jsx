@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo, useRef } from "react";
+import { apiErrorMessage } from "../../../utils/apiError";
 import { get, post } from "../../../utils/api";
 import { Notify } from "../../../components/Notify";
 
@@ -31,16 +32,19 @@ export function useForecasts() {
       setForecasts((prev) => [response, ...prev]);
       Notify.success("Forecast generated successfully.");
     } catch (err) {
-      Notify.error("Failed to generate forecast.");
+      Notify.error(apiErrorMessage(err, "Failed to generate forecast."));
     } finally {
       setGenerating(false);
     }
   }, []);
 
-  const actions = useMemo(() => ({
-    getForecasts,
-    generateForecast,
-  }), [getForecasts, generateForecast]);
+  const actions = useMemo(
+    () => ({
+      getForecasts,
+      generateForecast,
+    }),
+    [getForecasts, generateForecast]
+  );
 
   return {
     isLoading,

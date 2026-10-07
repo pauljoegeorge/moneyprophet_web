@@ -1487,3 +1487,46 @@ body:has(.money-workspace) .Toastify__toast-icon svg {
     padding: 16px;
   }
 }
+
+.money-workspace .workspace-quick-help {
+  position: relative;
+  margin-left: auto;
+}
+.money-workspace .workspace-quick-help summary {
+  list-style: none;
+  cursor: pointer;
+}
+.money-workspace .workspace-quick-help summary::-webkit-details-marker {
+  display: none;
+}
+.money-workspace .workspace-quick-help p {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  width: min(260px, calc(100vw - 96px));
+  margin: 8px 0 0;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--muted-foreground);
+  box-shadow: var(--shadow-sm);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.money-workspace .workspace-quick-composer > .workspace-quick-feedback {
+  display: block;
+  margin: 0 0 12px;
+}
+.money-workspace .workspace-quick-feedback p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.money-workspace .workspace-quick-composer > div:last-child {
+  justify-content: flex-end;
+}
+
+.money-workspace .workspace-quick-header + .workspace-quick-composer {
+  border-top: 0;
+}

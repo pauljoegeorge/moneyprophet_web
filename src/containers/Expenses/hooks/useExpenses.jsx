@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiErrorMessage } from "../../../utils/apiError";
 import { get, put, post } from "../../../utils/api";
 import { Notify } from "../../../components/Notify";
 
@@ -10,7 +11,7 @@ function useExpenses() {
     month,
     category = "",
     sort_by = "",
-    sortOrder = "",
+    sortOrder = ""
   ) => {
     const params = `from=${month}&category=${category}&sort_by=${sort_by}&sort_order=${sortOrder}`;
     const response = await get(`expenses?${params}`);
@@ -30,9 +31,9 @@ function useExpenses() {
       setLoading(false);
       Notify.success("Expense saved.");
       return true;
-    } catch {
+    } catch (error) {
       setLoading(false);
-      Notify.error();
+      Notify.error(apiErrorMessage(error));
       return false;
     }
   };
@@ -45,9 +46,9 @@ function useExpenses() {
       setLoading(false);
       Notify.success("Expense saved.");
       return true;
-    } catch {
+    } catch (error) {
       setLoading(false);
-      Notify.error();
+      Notify.error(apiErrorMessage(error));
       return false;
     }
   };
@@ -60,9 +61,9 @@ function useExpenses() {
       setExpenses(response);
       setLoading(false);
       Notify.success();
-    } catch {
+    } catch (error) {
       setLoading(false);
-      Notify.error();
+      Notify.error(apiErrorMessage(error));
     }
   };
 
@@ -81,9 +82,9 @@ function useExpenses() {
 
       setLoading(false);
       Notify.success();
-    } catch {
+    } catch (error) {
       setLoading(false);
-      Notify.error();
+      Notify.error(apiErrorMessage(error));
     }
   };
 
