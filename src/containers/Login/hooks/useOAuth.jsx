@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { get, put } from "../../../utils/api";
+import { beginOAuth, rememberOAuth, consumeOAuth } from "../../../utils/oauth";
+import { get, post, put } from "../../../utils/api";
 import {
   saveAuthToken,
   getAuthToken,
@@ -16,17 +17,24 @@ function useOAuth() {
   const [userToken, setToken] = useState(getAuthToken() || null);
 
   const getOAuthUrl = async () => {
-    const response = await get("auth/google");
+    const { verifier, challenge } = await beginOAuth();
+    const response = await get(
+      `auth/google?code_challenge=${encodeURIComponent(challenge)}`
+    );
+    rememberOAuth(response.state, verifier);
     const { url } = response;
     setOauthUrl(url);
   };
 
-  const startOAuth = async (code) => {
+  const startOAuth = async (code, state) => {
     setLoading(true);
     try {
-      const response = await get(
-        `auth/google/callback?code=${encodeURIComponent(code)}`,
-      );
+      const verifier = consumeOAuth(state);
+      const response = await post("auth/google/callback", {
+        code,
+        state,
+        code_verifier: verifier,
+      });
       const { token, refresh_token: refreshToken, user } = response;
       if (!token) throw new Error("Sign-in did not return a session");
       saveAuthToken(token);

@@ -55,7 +55,7 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     // Prevent infinite loops if refresh fails
-    if (originalRequest.url.includes("/auth/refresh")) {
+    if (originalRequest.url.includes("auth/")) {
       return Promise.reject(error);
     }
 
@@ -124,7 +124,7 @@ const get = async (url) => {
     const response = await api.get(url);
     return response.data;
   } catch (error) {
-    console.error(`Error making GET request to ${url}:`, error);
+    console.error("API GET request failed", error.response?.status);
     throw error;
   }
 };
@@ -134,7 +134,7 @@ const post = async (url, data, headers = {}) => {
     const response = await api.post(url, data, headers);
     return response.data;
   } catch (error) {
-    console.error(`Error making POST request to ${url}:`, error);
+    console.error("API POST request failed", error.response?.status);
     throw error;
   }
 };
@@ -144,7 +144,7 @@ const put = async (url, data) => {
     const response = await api.put(url, data);
     return response.data;
   } catch (error) {
-    console.error(`Error making PUT request to ${url}:`, error);
+    console.error("API PUT request failed", error.response?.status);
     throw error;
   }
 };
@@ -154,7 +154,7 @@ const remove = async (url) => {
     const response = await api.delete(url);
     return response.data;
   } catch (error) {
-    console.error(`Error making DELETE request to ${url}:`, error);
+    console.error("API DELETE request failed", error.response?.status);
     throw error;
   }
 };

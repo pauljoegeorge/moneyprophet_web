@@ -30,7 +30,9 @@ export function useForecasts() {
       setGenerating(true);
       const response = await post("expense_insights/forecast");
       setForecasts((prev) => [response, ...prev]);
-      Notify.success("Forecast generated successfully.");
+      Notify.success(
+        response.notice?.message || "Forecast generated successfully."
+      );
     } catch (err) {
       Notify.error(apiErrorMessage(err, "Failed to generate forecast."));
     } finally {

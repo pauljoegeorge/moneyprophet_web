@@ -34,9 +34,9 @@ export default function LoginContainer({ history }) {
       setConnecting(false);
       return;
     }
-    if (query.get("state") === "google" && query.get("code")) {
+    if (query.get("code")) {
       actions
-        .startOAuth(query.get("code"))
+        .startOAuth(query.get("code"), query.get("state"))
         .catch(() => {
           setError("We couldn’t complete sign-in. Please try again.");
         })

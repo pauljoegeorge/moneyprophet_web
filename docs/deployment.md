@@ -170,3 +170,9 @@ Use the Money Prophet distribution ID, not the portfolio's. Upload before invali
 - [AWS: CloudFront certificates](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html)
 - [AWS: Route 53 aliases to CloudFront](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html)
 - [Google: Web-server OAuth](https://developers.google.com/identity/protocols/oauth2/web-server)
+
+## Security rollout requirement
+
+Deploy the browser-bound OAuth flow together with the API security migration. The API must accept a challenge on `GET /api/v1/auth/google` and a JSON `POST /api/v1/auth/google/callback` with code, state, and verifier. The browser callback URL remains `/sign_in`; no cross-origin cookie configuration is needed. HTTPS is required outside localhost for Web Crypto. Older web bundles will need a reload after the API switch. See the API repository's `docs/security.md` for the migration and coordinated native ID-token rollout.
+
+Run `node --test scripts/oauth.test.mjs` to check browser-state binding and PKCE generation before release. These tests do not validate production Google credentials.
