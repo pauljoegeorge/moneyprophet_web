@@ -1530,3 +1530,106 @@ body:has(.money-workspace) .Toastify__toast-icon svg {
 .money-workspace .workspace-quick-header + .workspace-quick-composer {
   border-top: 0;
 }
+
+/* Let content shrink inside grid/flex tracks instead of widening the page. */
+.money-workspace .workspace-heading > div,
+.money-workspace .workspace-card-header > div,
+.money-workspace .workspace-plan-summary > div,
+.money-workspace .workspace-plan-fields > *,
+.money-workspace .workspace-entry-fields > *,
+.money-workspace .workspace-expense-edit-row > *,
+.money-workspace .workspace-private-total > strong {
+  min-width: 0;
+}
+.money-workspace .workspace-private-total > strong,
+.money-workspace .workspace-settings-grid .workspace-card,
+.money-workspace .workspace-heading p {
+  overflow-wrap: anywhere;
+}
+.money-workspace .workspace-plan-navigation {
+  flex-wrap: wrap;
+}
+.money-workspace .workspace-plan-navigation a {
+  min-width: 0;
+  flex: 1 1 auto;
+  justify-content: center;
+  text-align: center;
+}
+.money-workspace .workspace-expense-history {
+  width: 100%;
+  min-width: 0;
+}
+.money-workspace .workspace-expense-table td > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.money-workspace .category-with-icon {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.money-workspace .category-icon-popover {
+  max-width: calc(100vw - 72px);
+}
+.money-workspace .category-icon-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.money-workspace .category-icon-grid button {
+  width: 100%;
+}
+@media (max-width: 600px) {
+  .money-workspace .workspace-budget-list li {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .money-workspace .workspace-budget-category {
+    flex-basis: 100%;
+  }
+  .money-workspace .workspace-budget-row-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .money-workspace .workspace-budget-amount {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .money-workspace .workspace-expense-edit-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .money-workspace input:not([type="checkbox"]),
+  .money-workspace textarea,
+  .money-workspace .MuiSelect-select {
+    min-width: 0;
+    max-width: 100%;
+    font-size: 16px;
+  }
+  .money-workspace .workspace-icon-button,
+  .money-workspace .workspace-button,
+  .money-workspace .workspace-segmented button,
+  .money-workspace .workspace-plan-navigation a {
+    min-height: 44px;
+  }
+  .money-workspace .workspace-icon-button {
+    min-width: 44px;
+    flex-shrink: 0;
+  }
+  .money-workspace .workspace-breadcrumb {
+    min-width: 0;
+    gap: 8px;
+  }
+  .money-workspace .workspace-breadcrumb > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .money-workspace .workspace-breadcrumb span[aria-hidden] {
+    padding: 0 4px;
+  }
+  .money-workspace .workspace-transaction {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+  .money-workspace .workspace-transaction-amount {
+    grid-column: 2;
+    overflow-wrap: anywhere;
+  }
+}

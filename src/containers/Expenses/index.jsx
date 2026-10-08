@@ -202,7 +202,7 @@ function ExpensesContainer() {
                     </div>
                   )}
                 {viewMode ? (
-                  <div style={{ width: "100%", padding: "0 16px" }}>
+                  <div className="workspace-expense-history">
                     <ExpensesViewMode
                       expenses={visibleExpenses}
                       handleSortExpenses={handleSortExpenses}
