@@ -18,7 +18,7 @@ function WeeklyExpenseReport(props) {
 
   const data = Object.entries(weeklyReport).map(([week, value]) => ({
     week,
-    value,
+    value: Number(value),
   }));
 
   return (

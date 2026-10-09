@@ -14,10 +14,11 @@ export const getCurrency = () => {
 };
 
 export const formattedCurrency = (amount) => {
-  return amount.toLocaleString("ja-JP", {
+  const value = Number(amount);
+  if (amount == null || !Number.isFinite(value)) return "—";
+  return value.toLocaleString("ja-JP", {
     style: "currency",
     currency: getCurrency(),
-    minimumFractionDigits: 0,
   });
 };
 

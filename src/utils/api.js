@@ -1,5 +1,7 @@
 import axios from "axios";
+import { requestAiConsent } from "./aiConsent";
 import {
+  getCurrentUser,
   getRefreshToken,
   saveAuthToken,
   saveRefreshToken,
@@ -53,6 +55,19 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
+    if (
+      error.response?.status === 428 &&
+      error.response.data?.code === "ai_consent_required" &&
+      !originalRequest.consentRetried
+    ) {
+      originalRequest.consentRetried = true;
+      const account = getCurrentUser()?.email;
+      if (await requestAiConsent(error.response.data.policy, account)) {
+        if (getCurrentUser()?.email === account) return api(originalRequest);
+      }
+      return Promise.reject(error);
+    }
 
     // Prevent infinite loops if refresh fails
     if (originalRequest.url.includes("auth/")) {

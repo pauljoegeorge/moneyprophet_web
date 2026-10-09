@@ -16,8 +16,8 @@ export default function OverallExpenseInsight(props) {
 
   const { totalBudget, totalExpense } = (expense_by_categories || []).reduce(
     (totals, category) => ({
-      totalBudget: totals.totalBudget + (category?.budget || 0),
-      totalExpense: totals.totalExpense + (category?.total_expense || 0),
+      totalBudget: totals.totalBudget + Number(category?.budget || 0),
+      totalExpense: totals.totalExpense + Number(category?.total_expense || 0),
     }),
     { totalBudget: 0, totalExpense: 0 }
   );

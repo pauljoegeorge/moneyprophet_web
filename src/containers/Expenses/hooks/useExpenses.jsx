@@ -27,9 +27,9 @@ function useExpenses() {
     try {
       setLoading(true);
       const data = { expense: values.expenses };
-      await post("expenses", data);
+      const response = await post("expenses", data);
       setLoading(false);
-      Notify.success("Expense saved.");
+      Notify.success(response.notice?.message || "Expense saved.");
       return true;
     } catch (error) {
       setLoading(false);

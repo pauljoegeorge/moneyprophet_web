@@ -21,6 +21,7 @@ import {
 import QuickExpense from "./components/QuickExpense";
 import CategoryIcon from "../../components/CategoryIcon";
 import { get } from "../../utils/api";
+import { normalizeCategoryAmounts } from "../../utils/categoryMoney";
 import { formattedCurrency } from "../../utils/currency";
 import { addDateToUrl, appendUrlToDate } from "../../utils/utils";
 import { getReportingPeriod } from "./utils/reportingPeriod";
@@ -56,7 +57,13 @@ export default function DashboardContainer() {
       get(`expenses?from=${month}&sort_by=transaction_date&sort_order=desc`),
     ]).then(([summary, transactions]) => {
       if (!active) return;
-      if (summary.status === "fulfilled") setInsights(summary.value);
+      if (summary.status === "fulfilled")
+        setInsights({
+          ...summary.value,
+          expense_by_categories: normalizeCategoryAmounts(
+            summary.value.expense_by_categories || []
+          ),
+        });
       else setError("We couldn't load your overview. Please try again.");
       if (transactions.status === "fulfilled")
         setRecent(transactions.value.slice(0, 5));
@@ -111,7 +118,7 @@ export default function DashboardContainer() {
     });
 
   const averageLabel =
-    dailyAverage === null ? "—" : money(Math.round(dailyAverage));
+    dailyAverage === null ? "—" : money(dailyAverage);
   const averageNote = daysElapsed
     ? `Across ${daysElapsed} days`
     : "This month hasn't started";
@@ -383,7 +390,7 @@ export default function DashboardContainer() {
                   </div>
                   <div className="workspace-note">
                     {totalBudget > 0
-                      ? `Daily average: ${dailyAverage === null ? "—" : money(Math.round(dailyAverage))}${current ? ` · Weekly allowance: ${money(insights.allowance_per_week)}` : ""}`
+                      ? `Daily average: ${dailyAverage === null ? "—" : money(dailyAverage)}${current ? ` · Weekly allowance: ${money(insights.allowance_per_week)}` : ""}`
                       : "Set category budgets to start tracking your remaining allowance."}
                   </div>
                 </div>

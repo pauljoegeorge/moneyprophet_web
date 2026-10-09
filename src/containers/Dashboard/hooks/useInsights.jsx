@@ -1,5 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
+import { normalizeCategoryAmounts } from "../../../utils/categoryMoney";
 import { get } from "../../../utils/api";
 
 function useInsights() {
@@ -11,7 +12,12 @@ function useInsights() {
     const currentDate = moment();
     const currentMonth = currentDate.startOf("month").format("YYYY-MM-DD");
     const response = await get(`expenses/insights?from=${date}`);
-    setExpenseInsights(response);
+    setExpenseInsights({
+      ...response,
+      expense_by_categories: normalizeCategoryAmounts(
+        response.expense_by_categories || []
+      ),
+    });
     setLoading(false);
   };
 

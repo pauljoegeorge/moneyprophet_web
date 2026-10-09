@@ -1,0 +1,32 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const source = fs.readFileSync(new URL('../src/utils/aiConsent.js', import.meta.url),'utf8');
+const {requestAiConsent} = await import('data:text/javascript,'+encodeURIComponent(source));
+globalThis.window = new EventTarget();
+globalThis.CustomEvent = class extends Event { constructor(name,options) { super(name); this.detail=options.detail; } };
+test('concurrent AI operations share one explicit consent prompt and a cancellation', async () => {
+  let detail; let count=0;
+  const receive = event => {detail=event.detail;count++;};
+  window.addEventListener('ai:consent',receive);
+  const first=requestAiConsent({version:'fixture'},'fixture@example.test');
+  const second=requestAiConsent({version:'fixture'},'fixture@example.test');
+  assert.equal(first,second); assert.equal(count,1);
+  assert.equal(detail.account,'fixture@example.test');
+  detail.resolve(false);
+  assert.equal(await first,false); assert.equal(await second,false);
+  window.removeEventListener('ai:consent',receive);
+});
+test('acceptance requires an explicit resolution and a later request prompts again', async () => {
+  let detail;
+  const receive = event => {detail=event.detail;};
+  window.addEventListener('ai:consent',receive);
+  const pending=requestAiConsent({version:'fixture'},'fixture@example.test');
+  let resolved=false; pending.then(()=>{resolved=true;});
+  await Promise.resolve(); assert.equal(resolved,false);
+  detail.resolve(true); assert.equal(await pending,true);
+  const next=requestAiConsent({version:'updated'},'fixture@example.test');
+  assert.equal(detail.policy.version,'updated');
+  detail.resolve(false); assert.equal(await next,false);
+  window.removeEventListener('ai:consent',receive);
+});

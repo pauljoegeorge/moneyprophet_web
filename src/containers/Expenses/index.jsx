@@ -98,7 +98,7 @@ function ExpensesContainer() {
         const { pristine, valid, values } = getState();
         const totalExpense = formattedCurrency(
           values.expenses.reduce(
-            (total, expense) => total + parseInt(expense.amount || 0, 10),
+            (total, expense) => total + Number(expense.amount || 0),
             0,
           ),
         );

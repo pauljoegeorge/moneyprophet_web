@@ -6,6 +6,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Seo from "./marketing/Seo";
+import AiConsentDialog from "./components/AiConsentDialog";
 
 function App(props) {
   return (
@@ -19,6 +20,7 @@ function App(props) {
           })}
         </Switch>
       </Router>
+      <AiConsentDialog />
       <ToastContainer />
     </ThemeProvider>
   );

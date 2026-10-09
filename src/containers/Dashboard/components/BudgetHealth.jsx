@@ -70,8 +70,8 @@ function BudgetHealth({ expenseInsights }) {
 
   const { totalBudget, totalExpense } = (cats || []).reduce(
     (acc, c) => ({
-      totalBudget: acc.totalBudget + (c.budget || 0),
-      totalExpense: acc.totalExpense + (c.total_expense || 0),
+      totalBudget: acc.totalBudget + Number(c.budget || 0),
+      totalExpense: acc.totalExpense + Number(c.total_expense || 0),
     }),
     { totalBudget: 0, totalExpense: 0 },
   );

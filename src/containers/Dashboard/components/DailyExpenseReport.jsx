@@ -18,7 +18,7 @@ function DailyExpenseReport(props) {
 
   const data = Object.entries(dailyReport).map(([day, value]) => ({
     day,
-    value,
+    value: Number(value),
   }));
 
   return (

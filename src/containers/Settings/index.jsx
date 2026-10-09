@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
 import { UserRound, Globe } from "lucide-react";
+import AiPrivacySettings from "../../components/AiPrivacySettings";
 import WorkspacePage from "../../components/WorkspacePage";
 import { PrimaryButton } from "../../components/Button";
 import InputSelect from "../../components/InputSelect";
@@ -67,6 +68,7 @@ export default function SettingsContainer() {
             </form>
           )}
         />
+        <AiPrivacySettings />
       </div>
     </WorkspacePage>
   );
