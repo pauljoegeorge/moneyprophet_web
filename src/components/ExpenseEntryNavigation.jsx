@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { PenLine, Sparkles, Camera } from "lucide-react";
+import { PenLine, Sparkles } from "lucide-react";
 
 export default function ExpenseEntryNavigation() {
   return (
@@ -15,10 +15,6 @@ export default function ExpenseEntryNavigation() {
       <NavLink exact to="/chat" activeClassName="is-active">
         <Sparkles size={16} />
         Text
-      </NavLink>
-      <NavLink exact to="/new/bill" activeClassName="is-active">
-        <Camera size={16} />
-        Receipt
       </NavLink>
     </nav>
   );

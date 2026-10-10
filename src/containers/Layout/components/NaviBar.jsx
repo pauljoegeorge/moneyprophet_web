@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AutoAwesome from "@mui/icons-material/AutoAwesome";
-import { AddAPhoto, DarkMode, LightMode } from "@mui/icons-material";
+import { DarkMode, LightMode } from "@mui/icons-material";
 import { AppBar } from "../utils/drawer";
 import { FlexContainer } from "../../../components/Div";
 import { useThemeMode } from "../../../contexts/ThemeContext";
@@ -79,13 +79,6 @@ function NavigationBar() {
             sx={iconBtnSx}
           >
             <AutoAwesome sx={{ fontSize: "1.25rem" }} />
-          </IconButton>
-          <IconButton
-            aria-label="Add transaction from photo"
-            onClick={() => navigateTo("/new/bill")}
-            sx={iconBtnSx}
-          >
-            <AddAPhoto sx={{ fontSize: "1.25rem" }} />
           </IconButton>
           <IconButton
             aria-label={

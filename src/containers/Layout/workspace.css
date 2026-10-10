@@ -1246,52 +1246,6 @@ body:has(.money-workspace) .Toastify__toast-icon svg {
     gap: 6px;
   }
 }
-.money-workspace .workspace-receipt-options {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 24px;
-}
-.money-workspace .workspace-receipt-option {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 28px 18px;
-  color: var(--primary);
-  background: var(--accent);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  cursor: pointer;
-  font: inherit;
-}
-.money-workspace .workspace-receipt-option:hover {
-  border-color: var(--primary);
-}
-.money-workspace .workspace-receipt-option strong {
-  color: var(--foreground);
-  font-size: 15px;
-}
-.money-workspace .workspace-receipt-option span {
-  color: var(--muted-foreground);
-  font-size: 12px;
-}
-.money-workspace .workspace-receipt-preview {
-  display: block;
-  max-width: 100%;
-  max-height: 480px;
-  margin: 20px auto;
-  object-fit: contain;
-  border-radius: 12px;
-}
-.money-workspace .workspace-receipt-capture .workspace-page-actions {
-  margin-top: 16px;
-}
-@media (max-width: 600px) {
-  .money-workspace .workspace-receipt-options {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
 @media (max-width: 600px) {
   .money-workspace .workspace-category-choice {
     flex-direction: row;

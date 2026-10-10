@@ -45,8 +45,8 @@ export default function AppLayout({ children }) {
     [...workspace, ...tools].find(
       (item) =>
         item.path === pathname ||
-        (item.path === "/new" && ["/chat", "/new/bill"].includes(pathname)) ||
-        (item.path === "/budget" && pathname === "/r_expenses"),
+        (item.path === "/new" && pathname === "/chat") ||
+        (item.path === "/budget" && pathname === "/r_expenses")
     )?.label || "Add expense";
   const renderLinks = (items) =>
     items.map(({ label, path, icon: Icon }) => (
@@ -58,8 +58,7 @@ export default function AppLayout({ children }) {
         activeClassName="is-active"
         isActive={(_, location) =>
           location.pathname === path ||
-          (path === "/new" &&
-            ["/chat", "/new/bill"].includes(location.pathname)) ||
+          (path === "/new" && location.pathname === "/chat") ||
           (path === "/budget" && location.pathname === "/r_expenses")
         }
         onClick={() => setMenuOpen(false)}

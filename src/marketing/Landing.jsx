@@ -180,7 +180,7 @@ export default function Landing() {
                 MessageSquare,
                 "03",
                 "Make tracking feel lighter",
-                "Choose a category, describe an expense in plain text, or scan a receipt. Record it in the way that fits your day.",
+                "Choose a category or describe an expense in plain text. Record it in the way that fits your day.",
               ],
             ].map(([Icon, num, title, body]) => (
               <article className="mp-feature" key={num}>

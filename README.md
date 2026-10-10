@@ -8,7 +8,7 @@ A calm workspace for personal finances: track expenses, plan monthly category bu
 
 - Public landing page and Google sign-in.
 - Overview with daily/weekly spending, remaining category budget, quotas, and detailed reports.
-- Expense entry by category, plain text, or receipt; quick text entry from Overview.
+- Expense entry by category or plain text; quick text entry from Overview.
 - Expense history with browse/edit modes, search, sorting, and CSV export.
 - Monthly category budgets and fixed bill planning with category icons.
 - Location-aware expense map, currency preferences, and amount visibility controls.
@@ -78,7 +78,7 @@ The Axios client calls `/api/v1/`, adds the saved bearer token, and handles toke
 | `/sign_in`                   | Google sign-in and callback              |
 | `/dashboard`                 | Overview                                 |
 | `/expenses`                  | Expense history                          |
-| `/new`, `/chat`, `/new/bill` | Manual, text, and receipt entry          |
+| `/new`, `/chat` | Manual and text entry          |
 | `/budget`, `/r_expenses`     | Monthly category budgets and fixed bills |
 | `/map`, `/settings`          | Expense map and preferences              |
 | `/privacy.html`              | Static privacy policy                    |
