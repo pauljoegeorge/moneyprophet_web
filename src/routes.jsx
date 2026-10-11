@@ -15,10 +15,12 @@ import MapRoutes from "./pages/Map/routes";
 import SettingsRoutes from "./pages/Settings/routes";
 import ForecastsRoutes from "./pages/Forecasts/routes";
 import LayoutContainer from "./containers/Layout";
-import AppLayout from "./containers/Layout/AppLayout";
+import PrivateWorkspace from "./contexts/AccountContext";
+import Onboarding from "./containers/Onboarding";
 import { getAuthToken } from "./utils/auth";
 
 const routes = [
+  { path: "/onboarding", exact: true, component: Onboarding },
   ...LoginRoutes.map((route) => ({ ...route, type: "bare" })),
   ...DashboardRoutes,
   ...FixedExpensesRoutes,
@@ -66,9 +68,9 @@ const renderPrivateRoute = (route, props) => (
       const authenticated = getAuthToken();
       if (authenticated)
         return (
-          <AppLayout {...props}>
+          <PrivateWorkspace>
             <route.component {...restProps} {...props} />
-          </AppLayout>
+          </PrivateWorkspace>
         );
       return <Redirect to={{ pathname: "/sign_in" }} />;
     }}

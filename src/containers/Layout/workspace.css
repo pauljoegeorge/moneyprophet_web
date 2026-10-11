@@ -1587,3 +1587,26 @@ body:has(.money-workspace) .Toastify__toast-icon svg {
     overflow-wrap: anywhere;
   }
 }
+
+/* First-run setup follows the focused workspace layout. */
+.money-workspace .workspace-onboarding { padding: 24px; }
+.money-workspace .workspace-onboarding h2 { margin: 8px 0 20px; }
+.money-workspace .workspace-onboarding fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.money-workspace .workspace-onboarding label { font-weight: 500; }
+.money-workspace .workspace-onboarding input,
+.money-workspace .workspace-onboarding select { display: block; width: 100%; min-width: 0; min-height: 44px; border: 1px solid var(--input); border-radius: 8px; padding: 10px 12px; color: var(--foreground); background: var(--card); font: inherit; }
+.money-workspace .onboarding-choices { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+.money-workspace .onboarding-choices [aria-pressed="true"] { background: var(--secondary); border-color: var(--primary); }
+.money-workspace .onboarding-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 180px) auto; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.money-workspace .onboarding-category-name { display: flex; align-items: center; gap: 8px; overflow-wrap: anywhere; }
+.money-workspace .onboarding-amount { display: flex; align-items: center; gap: 8px; }
+.money-workspace .onboarding-amount span { color: var(--muted-foreground); font-size: 13px; }
+.money-workspace .onboarding-custom { display: flex; align-items: end; gap: 12px; margin-top: 20px; }
+.money-workspace .onboarding-custom label { flex: 1; min-width: 0; }
+.money-workspace .onboarding-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.money-workspace .workspace-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (max-width: 540px) {
+  .money-workspace .workspace-onboarding { padding: 16px; }
+  .money-workspace .onboarding-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .money-workspace .onboarding-category-name { grid-column: 1 / -1; }
+}

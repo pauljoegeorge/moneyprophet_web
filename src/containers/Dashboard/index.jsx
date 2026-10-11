@@ -18,6 +18,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useAccount } from "../../contexts/AccountContext";
+import { apiErrorMessage } from "../../utils/apiError";
 import QuickExpense from "./components/QuickExpense";
 import CategoryIcon from "../../components/CategoryIcon";
 import { get } from "../../utils/api";
@@ -30,9 +32,17 @@ import WeeklyExpenseReport from "./components/WeeklyExpenseReport";
 import ExpenseInsight from "./components/ExpenseInsight";
 
 export default function DashboardContainer() {
+  const { user } = useAccount();
+  const firstMonth = user.expense_start_date;
   const [month, setMonth] = useState(() => {
     const selected = addDateToUrl();
-    if (moment(selected, "YYYY-MM-DD", true).isValid()) return selected;
+    if (moment(selected, "YYYY-MM-DD", true).isValid()) {
+      const validMonth = moment(selected).isBefore(firstMonth, "month")
+        ? firstMonth
+        : selected;
+      appendUrlToDate(validMonth);
+      return validMonth;
+    }
     const fallback = moment().startOf("month").format("YYYY-MM-DD");
     appendUrlToDate(fallback);
     return fallback;
@@ -44,7 +54,7 @@ export default function DashboardContainer() {
   const [recentError, setRecentError] = useState(false);
   const [retry, setRetry] = useState(0);
   const [hidden, setHidden] = useState(
-    () => localStorage.getItem("mp-dashboard-private") === "true",
+    () => localStorage.getItem("mp-dashboard-private") === "true"
   );
 
   useEffect(() => {
@@ -64,7 +74,13 @@ export default function DashboardContainer() {
             summary.value.expense_by_categories || []
           ),
         });
-      else setError("We couldn't load your overview. Please try again.");
+      else
+        setError(
+          apiErrorMessage(
+            summary.reason,
+            "We couldn't load your overview. Please try again."
+          )
+        );
       if (transactions.status === "fulfilled")
         setRecent(transactions.value.slice(0, 5));
       else {
@@ -80,7 +96,7 @@ export default function DashboardContainer() {
 
   const changeMonth = (next) => {
     const parsed = moment(next, "YYYY-MM-DD", true);
-    if (!parsed.isValid()) return;
+    if (!parsed.isValid() || parsed.isBefore(firstMonth, "month")) return;
     const value = parsed.startOf("month").format("YYYY-MM-DD");
     appendUrlToDate(value);
     setMonth(value);
@@ -95,19 +111,19 @@ export default function DashboardContainer() {
   const cats = insights?.expense_by_categories || [];
   const totalBudget = cats.reduce(
     (sum, cat) => sum + Number(cat.budget || 0),
-    0,
+    0
   );
   const totalExpense = Number(insights?.total_monthly_expense || 0);
   const categoryExpense = cats.reduce(
     (sum, cat) => sum + Number(cat.total_expense || 0),
-    0,
+    0
   );
   const remaining = totalBudget - categoryExpense;
   const { daysElapsed, daysInMonth } = getReportingPeriod(month);
   const current = moment(month).isSame(moment(), "month");
   const dailyAverage = daysElapsed ? totalExpense / daysElapsed : null;
   const activeCats = cats.filter(
-    (cat) => cat.budget > 0 || cat.total_expense > 0,
+    (cat) => cat.budget > 0 || cat.total_expense > 0
   );
   let cumulative = 0;
   const spending = Object.entries(insights?.daily_report || {})
@@ -117,8 +133,7 @@ export default function DashboardContainer() {
       return { day, spent: cumulative };
     });
 
-  const averageLabel =
-    dailyAverage === null ? "—" : money(dailyAverage);
+  const averageLabel = dailyAverage === null ? "—" : money(dailyAverage);
   const averageNote = daysElapsed
     ? `Across ${daysElapsed} days`
     : "This month hasn't started";
@@ -136,9 +151,10 @@ export default function DashboardContainer() {
               type="button"
               className="workspace-icon-button"
               aria-label="Previous month"
+              disabled={!moment(month).isAfter(firstMonth, "month")}
               onClick={() =>
                 changeMonth(
-                  moment(month).subtract(1, "month").format("YYYY-MM-DD"),
+                  moment(month).subtract(1, "month").format("YYYY-MM-DD")
                 )
               }
             >
@@ -146,6 +162,7 @@ export default function DashboardContainer() {
             </button>
             <input
               type="month"
+              min={firstMonth.slice(0, 7)}
               aria-label="Reporting month"
               value={month.slice(0, 7)}
               onChange={(event) => changeMonth(`${event.target.value}-01`)}
@@ -412,8 +429,7 @@ export default function DashboardContainer() {
                     cat.budget > 0
                       ? Math.max(
                           0,
-                          (Number(cat.total_expense) / Number(cat.budget)) *
-                            100,
+                          (Number(cat.total_expense) / Number(cat.budget)) * 100
                         )
                       : 0;
                   let progressColor = "var(--primary)";

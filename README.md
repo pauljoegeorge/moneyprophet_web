@@ -7,6 +7,8 @@ A calm workspace for personal finances: track expenses, plan monthly category bu
 ## Features
 
 - Public landing page and Google sign-in.
+- New-account onboarding: currency, editable starter budgets, and optional recurring bills. Choices survive reloads in the same tab; completion is saved by the API.
+- Overview month navigation starts at the account signup month, including direct URL links.
 - Overview with daily/weekly spending, remaining category budget, quotas, and detailed reports.
 - Expense entry by category or plain text; quick text entry from Overview.
 - Expense history with browse/edit modes, search, sorting, and CSV export.

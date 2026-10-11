@@ -176,3 +176,7 @@ Use the Money Prophet distribution ID, not the portfolio's. Upload before invali
 Deploy the browser-bound OAuth flow together with the API security migration. The API must accept a challenge on `GET /api/v1/auth/google` and a JSON `POST /api/v1/auth/google/callback` with code, state, and verifier. The browser callback URL remains `/sign_in`; no cross-origin cookie configuration is needed. HTTPS is required outside localhost for Web Crypto. Older web bundles will need a reload after the API switch. See the API repository's `docs/security.md` for the migration and coordinated native ID-token rollout.
 
 Run `node --test scripts/oauth.test.mjs` to check browser-state binding and PKCE generation before release. These tests do not validate production Google credentials.
+
+## Onboarding rollout
+
+Deploy the API with `GET /api/v1/users/me`, the `expense_start_date` user field, and the onboarding configuration/completion endpoints before releasing this web bundle. New accounts are routed to `/onboarding`; completed accounts continue to their requested workspace page. Settings and sign-out remain accessible during setup. The existing extensionless-route rewrite already serves `/onboarding` through the noindex `/app.html` shell. Verify a new-account setup, optional bill skipping, failed completion with retained choices, reloads, and direct Overview links earlier than the signup month before release.

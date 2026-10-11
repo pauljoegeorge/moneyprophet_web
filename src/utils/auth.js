@@ -9,6 +9,8 @@ export const saveRefreshToken = (refreshToken) =>
 export const getRefreshToken = () => localStorage.getItem("refreshToken");
 
 export const clearTokens = () => {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  if (user?.email) sessionStorage.removeItem(`mp-onboarding:${user.email}`);
   localStorage.removeItem("authToken");
   localStorage.removeItem("refreshToken");
   localStorage.removeItem("currentUser");

@@ -34,6 +34,7 @@ export default function AppLayout({ children }) {
   const { mode, toggleMode } = useThemeMode();
   const { pathname } = useLocation();
   const user = getCurrentUser();
+  const settingUp = user?.onboarding_completed === false;
   const name = user?.name || "Personal workspace";
   const initials = name
     .split(" ")
@@ -47,7 +48,7 @@ export default function AppLayout({ children }) {
         item.path === pathname ||
         (item.path === "/new" && pathname === "/chat") ||
         (item.path === "/budget" && pathname === "/r_expenses")
-    )?.label || "Add expense";
+    )?.label || (settingUp ? "Setup" : "Add expense");
   const renderLinks = (items) =>
     items.map(({ label, path, icon: Icon }) => (
       <NavLink
@@ -97,7 +98,10 @@ export default function AppLayout({ children }) {
           className={`workspace-sidebar ${menuOpen ? "is-open" : ""}`}
           aria-label="Main navigation"
         >
-          <Link to="/dashboard" className="workspace-brand">
+          <Link
+            to={settingUp ? "/onboarding" : "/dashboard"}
+            className="workspace-brand"
+          >
             <span>
               <Sprout size={22} aria-hidden="true" />
             </span>
@@ -111,8 +115,8 @@ export default function AppLayout({ children }) {
           >
             <X size={20} />
           </button>
-          <p className="workspace-nav-label">Your workspace</p>
-          <nav>{renderLinks(workspace)}</nav>
+          {!settingUp && <p className="workspace-nav-label">Your workspace</p>}
+          {!settingUp && <nav>{renderLinks(workspace)}</nav>}
           <p className="workspace-nav-label">Preferences</p>
           <nav>{renderLinks(tools)}</nav>
           <div className="workspace-profile">
