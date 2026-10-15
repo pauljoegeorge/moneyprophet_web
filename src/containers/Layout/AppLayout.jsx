@@ -169,6 +169,7 @@ export default function AppLayout({ children }) {
           <main className="workspace-content">{children}</main>
           <footer className="workspace-footer">
             <span>Money Prophet · Personal finance, thoughtfully.</span>
+            <a href="/#contact">Contact & support</a>
             <Link to="/privacy.html" target="_blank">
               Privacy policy
             </Link>

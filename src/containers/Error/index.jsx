@@ -1,24 +1,36 @@
-import React from "react";
-import styled from "styled-components";
-import { useHistory } from "react-router-dom";
-import { BiArrowBack } from "react-icons/bi";
-
-const Wrapper = styled.div`
-  text-align: center;
-  margin-top: 80px;
-  cursor: pointer;
-  font-size: 44px;
-`;
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { Brand } from "../../marketing/Landing";
 
 function ErrorContainer() {
-  const history = useHistory();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    document.title = "Page not found — Money Prophet";
+    const description = document.querySelector('meta[name="description"]');
+    if (description) {
+      description.content =
+        "This page could not be found. Return to Money Prophet or contact support.";
+    }
+  }, [pathname]);
+
   return (
-    <Wrapper>
-      <h1>#[WIP]</h1>
-      <button type="submit" onClick={() => history.push("/")}>
-        <BiArrowBack size={60} />
-      </button>
-    </Wrapper>
+    <div className="mp-public">
+      <header className="mp-site-header">
+        <Brand />
+      </header>
+      <main className="mp-not-found">
+        <p className="mp-eyebrow">404 · Page not found</p>
+        <h1>We couldn’t find that page.</h1>
+        <p>The link may be incorrect, or the page may have moved.</p>
+        <a className="mp-cta" href="/">
+          Go to home
+        </a>
+        <a className="mp-not-found-support" href="/#contact">
+          Contact support
+        </a>
+      </main>
+    </div>
   );
 }
 

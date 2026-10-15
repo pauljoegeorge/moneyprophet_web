@@ -5,7 +5,7 @@ const ErrorRoutes = [
     component: Error,
     path: "*",
     exact: true,
-    type: "public",
+    type: "bare",
   },
 ];
 

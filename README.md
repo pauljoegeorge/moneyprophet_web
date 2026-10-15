@@ -125,3 +125,7 @@ sh deploy.sh
 ```
 
 The script builds, checks the generated HTML, uploads to S3, invalidates all CloudFront paths, and waits for invalidation completion. It stops on failure and retains older hashed assets for open clients. Requires installed npm dependencies and AWS CLI permissions to upload to the bucket and create/read invalidations. Existing bucket, CloudFront, DNS, and OAuth setup must already be configured; see the [deployment guide](docs/deployment.md).
+
+## Public contact and support
+
+The landing page includes `/#contact`, also linked from the workspace. Visitors can submit a name, email, topic, and message without signing in. The API forwards accepted messages to Slack and enforces shared abuse limits. Deploy the API contact migration and configure its server-only `CONTACT_SLACK_WEBHOOK_URL` before releasing this form; see `../money_prophet/docs/contact.md`. No new browser environment variable or hosting rewrite is needed. The form discloses Slack processing and preserves failed submissions for retry.
