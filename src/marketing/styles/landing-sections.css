@@ -1,0 +1,130 @@
+/* Landing: a short introduction, essentials, optional detail, and support. */
+.mp-landing {
+  --background: #f7f7f0;
+}
+.mp-landing .mp-site-header {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.mp-landing .mp-site-header nav > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.mp-landing .mp-hero-section {
+  margin: 42px auto 88px;
+  gap: 72px;
+}
+.mp-landing .mp-hero-copy h1 {
+  font-size: clamp(52px, 6.1vw, 82px);
+  line-height: 1.04;
+  letter-spacing: -3.8px;
+  margin: 26px 0;
+}
+.mp-landing .mp-lead {
+  max-width: 365px;
+  font-size: 18px;
+  line-height: 1.7;
+}
+.mp-landing .mp-hero-actions {
+  margin-top: 32px;
+}
+.mp-landing .mp-cta {
+  border-radius: 100px;
+  padding: 15px 26px;
+}
+.mp-landing .mp-hero-visual {
+  background: #dfe8d7;
+  border-radius: 120px 28px 28px 28px;
+  padding: 38px 30px 20px;
+  transform: none;
+  position: relative;
+}
+.mp-landing .mp-visual-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 24px;
+  color: var(--primary);
+}
+.mp-landing .mp-visual-caption span:first-child {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+.mp-landing .mp-visual-caption span:last-child {
+  font-size: 25px;
+}
+.mp-landing .mp-preview-panel {
+  transform: rotate(-2deg);
+  box-shadow: 0 22px 45px #22352c18;
+}
+.mp-landing .mp-preview-message {
+  display: none;
+}
+.mp-landing .mp-visual-footnote {
+  margin: 24px 0 0;
+  font-size: 12px;
+  text-align: center;
+  color: var(--primary);
+}
+.mp-landing .mp-essentials,
+.mp-landing .mp-questions {
+  max-width: 1128px;
+  margin: 0 auto;
+  padding: 64px 0;
+  border-top: 1px solid var(--border);
+}
+.mp-landing .mp-essentials {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+}
+.mp-landing .mp-section-heading h2 {
+  font-size: clamp(32px, 3.4vw, 44px);
+  letter-spacing: -1.6px;
+}
+.mp-landing .mp-essential-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+.mp-landing .mp-essential-top {
+  display: flex;
+  justify-content: space-between;
+  color: var(--primary);
+}
+.mp-landing .mp-essential-top span {
+  font-size: 11px;
+  color: var(--muted-foreground);
+}
+.mp-landing .mp-essential h3 {
+  font-size: 21px;
+  margin: 26px 0 10px;
+  font-weight: 500;
+}
+.mp-landing .mp-essential p {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  line-height: 1.8;
+  margin: 0;
+}
+.mp-landing .mp-questions {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+}
+.mp-landing .mp-faq-list {
+  border-top: 0;
+}
+.mp-landing .mp-faq-list summary {
+  font-size: 17px;
+}
+.mp-landing .mp-faq-list p {
+  font-size: 14px;
+}
+.mp-landing .mp-faq-list a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

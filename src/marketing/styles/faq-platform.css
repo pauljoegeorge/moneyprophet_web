@@ -1,0 +1,67 @@
+
+.mp-public .mp-faq-list {
+  border-top: 1px solid var(--border);
+}
+.mp-public .mp-faq-list details {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+}
+.mp-public .mp-faq-list summary {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 18px;
+}
+.mp-public .mp-faq-list summary:focus-visible {
+  outline: 3px solid #9ab89b;
+  outline-offset: 4px;
+}
+.mp-public .mp-faq-list p {
+  max-width: 840px;
+  color: var(--muted-foreground);
+  margin: 14px 0 0;
+}
+.mp-public .mp-platform-card > svg {
+  color: var(--primary);
+}
+.mp-public .mp-platform-card .mp-cta {
+  margin-top: 22px;
+}
+.mp-public .mp-coming-soon {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 4px 12px;
+  background: var(--muted);
+  color: var(--primary);
+  font-size: 13px;
+}
+@media (max-width: 900px) {
+  .mp-public .mp-info-grid.three,
+  .mp-public .mp-limit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 650px) {
+  .mp-public .mp-info-section {
+    margin: 56px auto;
+    padding: 0 20px;
+  }
+  .mp-public .mp-info-grid.two,
+  .mp-public .mp-info-grid.three,
+  .mp-public .mp-limit-grid,
+  .mp-public .mp-screenshot-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mp-public .mp-info-card {
+    padding: 22px;
+  }
+  .mp-public .mp-privacy-panel {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .mp-public .mp-privacy-panel h2 {
+    font-size: 26px;
+  }
+  .mp-public .mp-app-shot figcaption {
+    padding: 20px;
+  }
+}

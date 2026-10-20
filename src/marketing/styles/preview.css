@@ -1,0 +1,127 @@
+.mp-preview-top,
+.mp-preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.mp-preview-top .mp-brand-link {
+  font-size: 13px;
+}
+.mp-preview-top .mp-brand-symbol {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+}
+.mp-sample {
+  font-size: 10px;
+  color: #647369;
+}
+.mp-preview-heading {
+  font-size: 12px;
+  margin: 28px 0 14px;
+}
+.mp-preview-balance {
+  padding: 20px;
+  background: #edf3e9;
+  border-radius: 10px;
+}
+.mp-preview-balance > span,
+.mp-preview-metrics span {
+  font-size: 11px;
+  color: #647369;
+  display: block;
+}
+.mp-preview-balance strong {
+  font-size: 34px;
+  letter-spacing: -1px;
+  font-weight: 500;
+  display: block;
+}
+.mp-preview-balance strong span {
+  font-size: 13px;
+  color: #647369;
+  letter-spacing: 0;
+}
+.mp-preview-balance p {
+  font-size: 11px;
+  margin: 5px 0 0;
+  color: #647369;
+}
+.mp-preview-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+.mp-preview-metrics > div {
+  border: 1px solid #e1e7df;
+  border-radius: 8px;
+  padding: 12px;
+}
+.mp-preview-metrics strong {
+  font-size: 20px;
+  font-weight: 500;
+}
+.mp-preview-categories h3 {
+  font-size: 12px;
+  font-weight: 500;
+  margin: 22px 0 14px;
+}
+.mp-preview-category {
+  margin-bottom: 14px;
+}
+.mp-preview-category > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 10px;
+}
+.mp-preview-category span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mp-preview-category span:last-child {
+  color: #647369;
+}
+.mp-preview-track {
+  height: 5px;
+  border-radius: 8px;
+  background: #edf1e9;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.mp-preview-track i {
+  height: 100%;
+  background: #698f69;
+  display: block;
+  border-radius: 8px;
+}
+.mp-preview-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #647369;
+  background: #f5f6f2;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 20px;
+}
+.mp-preview-message svg:last-child {
+  margin-left: auto;
+  color: #35674d;
+}
+.mp-value-strip {
+  max-width: 1128px;
+  margin: auto;
+  padding: 25px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid #dce4d9;
+  border-bottom: 1px solid #dce4d9;
+  font-size: 13px;
+  color: #647369;
+}

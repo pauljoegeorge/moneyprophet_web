@@ -1,0 +1,72 @@
+body:has(.money-workspace) {
+  margin: 0;
+}
+.money-workspace {
+  --workspace-wide-width: 1250px;
+  --workspace-focused-width: 880px;
+  --background: #f5f6f2;
+  --foreground: #22352c;
+  --card: #fff;
+  --card-foreground: #22352c;
+  --primary: #35674d;
+  --primary-hover: #264d39;
+  --primary-foreground: #fff;
+  --secondary: #eaf2e9;
+  --secondary-foreground: #35674d;
+  --muted: #eff3ed;
+  --muted-foreground: #647369;
+  --accent: #eaf2e9;
+  --accent-foreground: #35674d;
+  --border: #e1e7df;
+  --input: #d5dfd3;
+  --ring: #35674d;
+  --chart-budget: #a7bfa9;
+  --success: #35674d;
+  --warning: #98632d;
+  --hero: #183e2b;
+  --hero-text: #f3f8f0;
+  --radius-lg: 10px;
+  --radius-xl: 16px;
+  --bg-page: var(--background);
+  --bg-card: var(--card);
+  --text-primary: var(--foreground);
+  --text-secondary: var(--muted-foreground);
+  --border-light: var(--border);
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 224px minmax(0, 1fr);
+  font-family:
+    var(--font-body),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+[data-theme="dark"] .money-workspace {
+  --background: #151b18;
+  --foreground: #ecf2ed;
+  --card: #202923;
+  --card-foreground: #ecf2ed;
+  --primary: #afd9bb;
+  --primary-hover: #c2e4cd;
+  --primary-foreground: #15311f;
+  --secondary: #2d4132;
+  --secondary-foreground: #afd9bb;
+  --muted: #28352c;
+  --muted-foreground: #aab8af;
+  --accent: #2d4132;
+  --accent-foreground: #afd9bb;
+  --border: #354039;
+  --input: #44554a;
+  --ring: #afd9bb;
+  --chart-budget: #637d6a;
+  --success: #afd9bb;
+  --warning: #e6b27e;
+  --hero: #2d4132;
+  --hero-text: #ecf2ed;
+}
+.money-workspace * {
+  box-sizing: border-box;
+}

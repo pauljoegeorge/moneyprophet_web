@@ -1,0 +1,61 @@
+
+.mp-landing #contact {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  align-items: start;
+  gap: 64px;
+  padding: 48px;
+  margin: 32px auto 0;
+  max-width: 1128px;
+  background: var(--muted);
+  border-radius: 28px;
+}
+.mp-landing #contact .mp-section-heading {
+  margin: 0;
+}
+.mp-landing #contact .mp-section-heading > p:last-child {
+  font-size: 15px;
+  max-width: 290px;
+}
+.mp-landing .mp-contact-form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.mp-landing .mp-contact-form fieldset {
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.mp-landing .mp-contact-form label {
+  font-size: 13px;
+  font-weight: 500;
+}
+.mp-landing .mp-contact-form label:nth-of-type(n + 3),
+.mp-landing #contact-privacy {
+  grid-column: 1 / -1;
+}
+.mp-landing .mp-contact-form input,
+.mp-landing .mp-contact-form select,
+.mp-landing .mp-contact-form textarea {
+  margin-top: 6px;
+  border-color: var(--border);
+  font-size: 16px;
+  font-weight: 400;
+}
+.mp-landing #contact-privacy {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.mp-landing #contact-privacy a {
+  text-decoration: underline;
+}
+.mp-landing .mp-contact-form button {
+  grid-column: 1 / -1;
+  border: 0;
+}
+.mp-landing .mp-site-footer {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}

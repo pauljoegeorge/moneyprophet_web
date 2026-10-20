@@ -1,0 +1,94 @@
+.workspace-budget-row {
+  display: block;
+  color: var(--foreground);
+  padding: 12px 0;
+}
+.workspace-budget-row:hover {
+  color: var(--primary);
+}
+.workspace-budget-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  margin-bottom: 9px;
+}
+.workspace-budget-label span:last-child {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-foreground);
+}
+.workspace-track {
+  height: 5px;
+  background: var(--accent);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.workspace-track > span {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+  border-radius: 10px;
+}
+.workspace-callout {
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-top: 20px;
+}
+.workspace-callout svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.workspace-transaction {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.workspace-transaction:last-child {
+  border: 0;
+}
+.workspace-transaction-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--primary);
+}
+.workspace-transaction-name {
+  font-size: 13px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.workspace-transaction-amount {
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.workspace-empty {
+  padding: 25px 0;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.workspace-reports {
+  margin-top: 22px;
+}
+.workspace-reports summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 14px 0;
+}
+.workspace-backdrop {
+  display: none;
+}
+.money-workspace :focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}

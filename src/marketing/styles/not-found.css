@@ -1,0 +1,22 @@
+
+
+.mp-public .mp-not-found {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  text-align: center;
+}
+.mp-public .mp-not-found h1 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1.15;
+}
+.mp-public .mp-not-found > p:not(.mp-eyebrow) {
+  margin: 24px 0 32px;
+  color: var(--muted-foreground);
+}
+.mp-public .mp-not-found-support {
+  display: block;
+  width: fit-content;
+  margin: 24px auto 0;
+  text-decoration: underline;
+}

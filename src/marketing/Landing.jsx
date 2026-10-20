@@ -1,93 +1,14 @@
 import React from "react";
-import {
-  Sprout,
-  ArrowUpRight,
-  Wallet,
-  MessageSquare,
-  ChartPie,
-  Check,
-  Coffee,
-  ShoppingBasket,
-  House,
-} from "lucide-react";
+import { ArrowUpRight, Wallet, MessageSquare, ChartPie } from "lucide-react";
 import "./marketing.css";
 import Contact from "./Contact";
+import Questions from "./Questions";
+import Brand from "./Brand";
+import Preview from "./Preview";
 
-export function Brand() {
-  return (
-    <a className="mp-brand-link" href="/" aria-label="Money Prophet home">
-      <span className="mp-brand-symbol">
-        <Sprout size={23} />
-      </span>
-      Money Prophet
-    </a>
-  );
-}
-export function Preview() {
-  return (
-    <div
-      className="mp-preview-panel"
-      aria-label="Illustrative dashboard with sample data"
-    >
-      <div className="mp-preview-top">
-        <Brand />
-        <span className="mp-sample">Sample workspace</span>
-      </div>
-      <div className="mp-preview-heading">
-        <span>Your month, at a glance</span>
-        <span>October</span>
-      </div>
-      <div className="mp-preview-balance">
-        <span>Category budget left</span>
-        <strong>
-          ¥42,800<span> / ¥80,000</span>
-        </strong>
-        <p>A little more room for what matters.</p>
-      </div>
-      <div className="mp-preview-metrics">
-        <div>
-          <span>Spent today</span>
-          <strong>¥1,240</strong>
-        </div>
-        <div>
-          <span>Spent this week</span>
-          <strong>¥9,600</strong>
-        </div>
-      </div>
-      <div className="mp-preview-categories">
-        <h3>Category budgets</h3>
-        {[
-          [ShoppingBasket, "Groceries", "¥18,200 / ¥30,000", 61],
-          [Coffee, "Eating out", "¥12,000 / ¥15,000", 80],
-          [House, "Home & everyday", "¥7,000 / ¥35,000", 20],
-        ].map(([Icon, name, amount, width]) => (
-          <div className="mp-preview-category" key={name}>
-            <div>
-              <span>
-                <Icon size={15} />
-                {name}
-              </span>
-              <span>{amount}</span>
-            </div>
-            <div className="mp-preview-track">
-              <i
-                style={{
-                  width: `${width}%`,
-                  background: width >= 80 ? "#b97b3c" : undefined,
-                }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="mp-preview-message">
-        <MessageSquare size={17} />
-        <span>“Coffee 480”</span>
-        <Check size={16} />
-      </div>
-    </div>
-  );
-}
+export { default as Brand } from "./Brand";
+export { default as Preview } from "./Preview";
+
 export default function Landing() {
   return (
     <div className="mp-public mp-landing">
@@ -192,55 +113,7 @@ export default function Landing() {
             ))}
           </div>
         </section>
-        <section className="mp-questions" id="faq" aria-labelledby="faq-title">
-          <div className="mp-section-heading">
-            <p className="mp-eyebrow">Good to know</p>
-            <h2 id="faq-title">
-              Simple from
-              <br />
-              the start.
-            </h2>
-            <p>
-              Available on the web.
-              <br />
-              iOS is coming soon.
-            </p>
-          </div>
-          <div className="mp-faq-list">
-            <details id="free-plan">
-              <summary>What’s included for free?</summary>
-              <p>
-                Expense tracking, monthly budgets, and spending reports. The
-                Free plan includes 5 budget categories, 5 recurring-bill
-                categories, and 5 expenses per day (up to 2 with AI). You can
-                also generate one AI forecast and one spending suggestion per
-                month.
-              </p>
-              <p>
-                Daily allowances reset at midnight in Tokyo. The app shows your
-                remaining allowance and next steps.
-              </p>
-            </details>
-            <details>
-              <summary>Do I need to connect my bank?</summary>
-              <p>
-                No. Choose your currency, set your budgets, and record your
-                purchases. You decide what goes into your workspace.
-              </p>
-            </details>
-            <details>
-              <summary>Is AI optional?</summary>
-              <p>
-                Yes. Manual entry, budgets, and ordinary reports work without
-                it. AI features share relevant data with Google Gemini only
-                after your permission. You can withdraw permission in Settings.
-              </p>
-              <p>
-                <a href="/privacy.html">Read the privacy policy ↗</a>
-              </p>
-            </details>
-          </div>
-        </section>
+        <Questions />
         <Contact />
       </main>
       <footer className="mp-site-footer">

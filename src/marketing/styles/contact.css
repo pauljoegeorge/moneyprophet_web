@@ -1,0 +1,54 @@
+
+
+.mp-public .mp-contact-form {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.mp-public .mp-contact-form fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  display: grid;
+  gap: 12px;
+}
+.mp-public .mp-contact-form label {
+  font-weight: 600;
+}
+.mp-public .mp-contact-form input,
+.mp-public .mp-contact-form select,
+.mp-public .mp-contact-form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--muted-foreground);
+  border-radius: 8px;
+  color: var(--foreground);
+  background: var(--card);
+  font: inherit;
+}
+.mp-public .mp-contact-form textarea {
+  resize: vertical;
+}
+.mp-public .mp-contact-form :focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+.mp-public .mp-contact-form .mp-cta {
+  justify-self: start;
+  cursor: pointer;
+}
+.mp-public .mp-contact-form fieldset:disabled {
+  opacity: 0.65;
+}
+.mp-public .mp-contact-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.mp-public #contact {
+  scroll-margin-top: 30px;
+}

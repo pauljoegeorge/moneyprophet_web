@@ -1,0 +1,116 @@
+.mp-skip:focus {
+  top: 12px;
+}
+.mp-auth-layout {
+  max-width: 1128px;
+  margin: 40px auto 70px;
+  padding: 0 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  min-height: 65vh;
+}
+.mp-auth-story h1 {
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -2.5px;
+  margin: 20px 0;
+}
+.mp-auth-story > p:not(.mp-eyebrow) {
+  font-size: 16px;
+  max-width: 370px;
+  color: #647369;
+}
+.mp-auth-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #647369;
+  margin-top: 32px;
+}
+.mp-auth-card {
+  background: #fff;
+  border: 1px solid #dce4d9;
+  border-radius: 20px;
+  padding: 44px;
+  box-shadow: 0 12px 40px #22352c05;
+}
+.mp-auth-card h2 {
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -1px;
+  line-height: 1.25;
+  margin: 20px 0 12px;
+}
+.mp-auth-card > p {
+  font-size: 14px;
+  color: #647369;
+}
+.mp-auth-card .mp-gbtn {
+  margin-top: 32px;
+  min-height: 52px;
+  --font-body: "IBM Plex Sans";
+  border-radius: 10px;
+}
+.mp-auth-card .mp-gbtn:hover {
+  box-shadow: none;
+  background: #edf1e9;
+}
+.mp-auth-card .mp-gbtn:focus-visible {
+  box-shadow: 0 0 0 3px #9ab89b;
+}
+.mp-auth-card .mp-auth-legal {
+  font-size: 12px;
+  margin-top: 24px;
+  line-height: 1.8;
+}
+.mp-auth-legal a {
+  text-decoration: underline;
+}
+.mp-auth-divider {
+  border-top: 1px solid #e1e7df;
+  margin-top: 30px;
+  padding-top: 22px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #647369;
+  font-size: 12px;
+}
+.mp-auth-error {
+  padding: 14px;
+  background: #fff0eb;
+  border-radius: 8px;
+  color: #9b3c28;
+  font-size: 13px;
+}
+.mp-auth-error button {
+  display: block;
+  margin-top: 8px;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+.mp-auth-status {
+  font-size: 12px;
+  color: #647369;
+  margin-top: 12px;
+}
+.mp-auth-back {
+  font-size: 13px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+.mp-public ::selection {
+  background: #d4e4cd;
+}
+.mp-public {
+  overflow-x: clip;
+}

@@ -1,0 +1,96 @@
+@media (max-width: 760px) {
+  .money-workspace .workspace-plan-summary {
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+  .money-workspace .workspace-form-card {
+    padding: 18px;
+  }
+  .money-workspace .workspace-settings-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .money-workspace .workspace-expense-edit-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .money-workspace .workspace-plan-fields {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .money-workspace .workspace-plan-fields > :last-child {
+    grid-column: 2;
+  }
+  .money-workspace .workspace-check {
+    margin-left: 54px;
+  }
+  .money-workspace .workspace-entry-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.money-workspace .workspace-table-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.money-workspace .workspace-map-card {
+  overflow: hidden;
+}
+.money-workspace input:not([type="checkbox"]),
+.money-workspace textarea {
+  border: 1px solid var(--input);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--foreground);
+  min-height: 42px;
+}
+.money-workspace input:not([type="checkbox"]):focus,
+.money-workspace textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--ring-soft);
+}
+.money-workspace .MuiSelect-select {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+@media (max-width: 600px) {
+  .money-workspace .workspace-expense-table table,
+  .money-workspace .workspace-expense-table tbody {
+    display: block;
+  }
+  .money-workspace .workspace-expense-table thead {
+    display: none;
+  }
+  .money-workspace .workspace-expense-table tr {
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .money-workspace .workspace-expense-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0;
+    border: 0;
+    text-align: right;
+  }
+  .money-workspace .workspace-expense-table td::before {
+    content: attr(data-label);
+    font-size: 12px;
+    color: var(--muted-foreground);
+    flex-shrink: 0;
+  }
+  .money-workspace .workspace-expense-table td p {
+    overflow-wrap: anywhere;
+  }
+}
+@media (max-width: 600px) {
+  .money-workspace .workspace-expense-table td > p {
+    text-align: right;
+  }
+}

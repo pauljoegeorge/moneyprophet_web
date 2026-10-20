@@ -1,0 +1,104 @@
+.category-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.category-with-icon svg {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+.budget-category-editor {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) minmax(0, 1fr) 42px;
+  align-items: end;
+  gap: 12px;
+  margin-top: 18px;
+  width: 100%;
+}
+.category-icon-picker {
+  position: relative;
+  text-align: left;
+}
+.category-icon-picker summary {
+  list-style: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--accent);
+  color: var(--primary);
+  cursor: pointer;
+}
+.category-icon-picker summary::-webkit-details-marker {
+  display: none;
+}
+.category-icon-popover {
+  position: absolute;
+  top: 44px;
+  left: 0;
+  z-index: 10;
+  width: 258px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: var(--shadow-lg);
+}
+.category-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.category-icon-grid button {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  color: var(--foreground);
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.category-icon-grid button:hover,
+.category-icon-grid button[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--primary);
+}
+@media (max-width: 520px) {
+  .budget-category-editor {
+    grid-template-columns: 42px minmax(0, 1fr) 42px;
+  }
+  .budget-category-editor > div:nth-of-type(2) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .budget-category-editor > button {
+    grid-column: 3;
+    grid-row: 2;
+  }
+}
+.category-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+.category-chart-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.category-chart-legend i {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+}
+.workspace-reports .workspace-card-header {
+  flex-wrap: wrap;
+}

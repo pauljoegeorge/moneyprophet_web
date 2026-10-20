@@ -1,0 +1,139 @@
+.money-workspace .workspace-entry-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 26px 0;
+}
+.money-workspace .workspace-expense-edit-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+.money-workspace .workspace-settings-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+  gap: 24px;
+}
+.money-workspace .workspace-settings-icon {
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--primary);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+.money-workspace .workspace-segmented {
+  display: flex;
+  gap: 3px;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  padding: 3px;
+  border-radius: 9px;
+}
+.money-workspace .workspace-segmented button {
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted-foreground);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.money-workspace .workspace-segmented button[aria-pressed="true"] {
+  background: var(--card);
+  color: var(--primary);
+  box-shadow: 0 1px 3px #0000000c;
+}
+.money-workspace table {
+  border-collapse: collapse;
+  text-align: left;
+}
+.money-workspace table th {
+  background: var(--muted);
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.money-workspace table th,
+.money-workspace table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.money-workspace table tbody tr:hover {
+  background: var(--muted);
+}
+.money-workspace table td p {
+  margin: 0;
+}
+.money-workspace video {
+  width: 100%;
+  max-height: 480px;
+  background: var(--muted);
+  border-radius: 12px;
+  margin-top: 20px;
+}
+.money-workspace button:focus-visible,
+.money-workspace a:focus-visible,
+.money-workspace summary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.money-workspace button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+.money-workspace .MuiPaper-root {
+  background: var(--card);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+.money-workspace .MuiMenuItem-root.Mui-selected {
+  background: var(--accent);
+  color: var(--primary);
+}
+.money-workspace .MuiMenuItem-root:hover,
+.money-workspace .MuiMenuItem-root.Mui-selected:hover {
+  background: var(--muted);
+}
+.money-workspace .leaflet-container {
+  background: var(--muted);
+}
+.money-workspace .leaflet-popup-content-wrapper,
+.money-workspace .leaflet-popup-tip,
+.money-workspace .leaflet-bar a {
+  background: var(--card);
+  color: var(--foreground);
+}
+.money-workspace .workspace-map-pin {
+  width: 22px;
+  height: 22px;
+  background: var(--primary);
+  border: 3px solid var(--card);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #0003;
+}
+body:has(.money-workspace) .Toastify__toast {
+  background: #fff;
+  color: #22352c;
+  border: 1px solid #e1e7df;
+  border-radius: 12px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+body:has(.money-workspace) .Toastify__progress-bar--success,
+body:has(.money-workspace) .Toastify__progress-bar--default {
+  background: #35674d;
+}
+body:has(.money-workspace) .Toastify__toast-icon svg {
+  fill: #35674d;
+}
+[data-theme="dark"] body:has(.money-workspace) .Toastify__toast {
+  background: #202923;
+  color: #ecf2ed;
+  border-color: #354039;
+}

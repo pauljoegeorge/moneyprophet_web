@@ -47,11 +47,12 @@ Use `.env.development.local` locally and `.env.production.local` for production.
 | Command           | Action                                                                              |
 | ----------------- | ----------------------------------------------------------------------------------- |
 | `npm run dev`     | Start the local Vite server on port 3001.                                           |
-| `npm run lint`    | Run ESLint over JavaScript and JSX source.                                          |
+| `npm run check:file-size` | Audit every authored source file against the hard 200-line limit. |
+| `npm run lint`    | Check source file sizes and run ESLint over JavaScript and JSX source.                                          |
 | `npm run build`   | Build into `build/`, pre-render the landing page, and generate private HTML shells. |
 | `npm run preview` | Preview the production build locally.                                               |
 
-`start` is an alias for the development server. Despite its name, `start:prod` also starts Vite development mode; use the static build for deployment. There is currently no configured automated test command. Validate affected browser flows as well as lint and build.
+`start` is an alias for the development server. Despite its name, `start:prod` also starts Vite development mode; use the static build for deployment. `npm run test:file-size` verifies the source-size guard. Validate affected browser flows as well as lint and build.
 
 ## Project structure
 
