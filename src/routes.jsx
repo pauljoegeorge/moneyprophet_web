@@ -55,7 +55,13 @@ const renderBareRoute = (route, props) => (
     key={route.path}
     path={route.path}
     exact={route.exact}
-    render={(restProps) => <route.component {...restProps} {...props} />}
+    render={(restProps) =>
+      getAuthToken() ? (
+        <Redirect to="/dashboard" />
+      ) : (
+        <route.component {...restProps} {...props} />
+      )
+    }
   />
 );
 
@@ -78,7 +84,12 @@ const renderPrivateRoute = (route, props) => (
 );
 
 export const routeGenerator = ({ ...props }) => [
-  <Route key="root" path="/" exact render={() => <Landing />} />,
+  <Route
+    key="root"
+    path="/"
+    exact
+    render={() => (getAuthToken() ? <Redirect to="/dashboard" /> : <Landing />)}
+  />,
   ...routes.map((route) => {
     if (route.type === "bare") return renderBareRoute(route, { ...props });
     if (route.type === "public") return renderRoute(route, { ...props });

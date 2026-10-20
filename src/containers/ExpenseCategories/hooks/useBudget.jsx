@@ -17,7 +17,10 @@ function useBudget() {
       setLoading(true);
       const data = {
         from: month,
-        categories: values.fixedExpenseCategories.map((item) => ({ ...item })),
+        categories: values.fixedExpenseCategories.map((item, position) => ({
+          ...item,
+          position,
+        })),
       };
       const response = await put("fixed_expense_categories", data);
       setFixedExpenseCategories(response);

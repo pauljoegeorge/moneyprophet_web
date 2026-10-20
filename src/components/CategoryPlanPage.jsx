@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Form, Field } from "react-final-form";
 import moment from "moment";
-import { Plus, Download, Pencil } from "lucide-react";
+import { Plus, Download, Pencil, ArrowUp, ArrowDown } from "lucide-react";
 import WorkspacePage, { MonthNavigation } from "./WorkspacePage";
 import Input from "./Input";
 import CategoryIcon from "./CategoryIcon";
@@ -128,7 +128,7 @@ export default function CategoryPlanPage({
                       </h2>
                       <p className="workspace-note">
                         {editing
-                          ? `Choose an icon, name, and ${amountKey === "budget" ? "budget" : "amount"} for each category.`
+                          ? `Choose an icon, name, and ${amountKey === "budget" ? "budget" : "amount"} for each category. Order applies to all months.`
                           : "Your monthly plan, category by category."}
                         {!pristine &&
                           (editing
@@ -248,6 +248,43 @@ export default function CategoryPlanPage({
                                 amountKey === "budget" ? "Budget" : "Amount"
                               }
                             />
+                          </div>
+                          <div
+                            className="workspace-budget-row-actions"
+                            role="group"
+                            aria-label={`Reorder ${row.name || "category"}`}
+                          >
+                            {[-1, 1].map((direction) => (
+                              <button
+                                key={direction}
+                                type="button"
+                                className="workspace-icon-button"
+                                aria-label={`Move ${row.name || "category"} ${direction === -1 ? "up" : "down"}`}
+                                disabled={
+                                  loading ||
+                                  isLoading ||
+                                  index + direction < 0 ||
+                                  index + direction >= rows.length
+                                }
+                                onClick={() => {
+                                  const reordered = [...rows];
+                                  [
+                                    reordered[index],
+                                    reordered[index + direction],
+                                  ] = [
+                                    reordered[index + direction],
+                                    reordered[index],
+                                  ];
+                                  form.change(fieldName, reordered);
+                                }}
+                              >
+                                {direction === -1 ? (
+                                  <ArrowUp size={16} />
+                                ) : (
+                                  <ArrowDown size={16} />
+                                )}
+                              </button>
+                            ))}
                           </div>
                           <Field
                             name={`${fieldName}[${index}].update_future`}
