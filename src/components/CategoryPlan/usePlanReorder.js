@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import useDragAutoScroll from "./useDragAutoScroll";
 
 export default function usePlanReorder(rows, onChange) {
   const active = useRef(null);
@@ -24,6 +25,41 @@ export default function usePlanReorder(rows, onChange) {
     active.current = null;
     setDrag(null);
   };
+  const updateTarget = () => {
+    if (!active.current) return;
+    const { x, y } = active.current;
+    let target = document.elementFromPoint(x, y)?.closest("[data-plan-index]");
+    if (!target || !container.current?.contains(target)) {
+      const planRows = container.current?.querySelectorAll("[data-plan-index]");
+      const first = planRows?.[0];
+      const last = planRows?.[planRows.length - 1];
+      const bounds = container.current?.getBoundingClientRect();
+      const inside = bounds && x >= bounds.left && x <= bounds.right;
+      if (inside && first && y < first.getBoundingClientRect().top)
+        target = first;
+      else if (inside && last && y > last.getBoundingClientRect().bottom)
+        target = last;
+    }
+    if (!target || !container.current?.contains(target)) return;
+    const to = Number(target.dataset.planIndex);
+    if (to === active.current.to) return;
+    active.current = { ...active.current, to };
+    setDrag(active.current);
+  };
+  const dragging = Boolean(drag);
+  useDragAutoScroll(dragging, active, container, updateTarget);
+  useEffect(() => {
+    if (!dragging) return undefined;
+    const escape = (event) => {
+      if (event.key === "Escape") cancel();
+    };
+    window.addEventListener("blur", cancel);
+    window.addEventListener("keydown", escape);
+    return () => {
+      window.removeEventListener("blur", cancel);
+      window.removeEventListener("keydown", escape);
+    };
+  }, [dragging]);
   const handleProps = (index) => ({
     onKeyDown(event) {
       if (!["ArrowUp", "ArrowDown"].includes(event.key)) return;
@@ -44,19 +80,13 @@ export default function usePlanReorder(rows, onChange) {
     },
     onPointerMove(event) {
       if (!active.current) return;
-      const target = document
-        .elementFromPoint(event.clientX, event.clientY)
-        ?.closest("[data-plan-index]");
-      const belongsToPlan = target && container.current?.contains(target);
       active.current = {
         ...active.current,
         x: event.clientX,
         y: event.clientY,
-        to: belongsToPlan
-          ? Number(target.dataset.planIndex)
-          : active.current.to,
       };
       setDrag(active.current);
+      updateTarget();
     },
     onPointerUp() {
       if (active.current) move(active.current.from, active.current.to);
