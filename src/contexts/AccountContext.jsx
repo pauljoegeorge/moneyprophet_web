@@ -11,6 +11,7 @@ import { Redirect, useLocation } from "react-router-dom";
 import { get } from "../utils/api";
 import { saveCurrentUser } from "../utils/auth";
 import { apiErrorMessage } from "../utils/apiError";
+import WorkspaceLoader from "../components/WorkspaceLoader";
 import AppLayout from "../containers/Layout/AppLayout";
 
 const AccountContext = createContext(null);
@@ -51,12 +52,9 @@ export default function PrivateWorkspace({ children }) {
   if (!user)
     return (
       <AppLayout>
-        <section
-          className="workspace-card workspace-empty"
-          role={error ? "alert" : "status"}
-        >
-          <p>{error || "Loading your account…"}</p>
-          {error && (
+        {error ? (
+          <section className="workspace-card workspace-empty" role="alert">
+            <p>{error}</p>
             <button
               className="workspace-button"
               type="button"
@@ -64,8 +62,10 @@ export default function PrivateWorkspace({ children }) {
             >
               Retry
             </button>
-          )}
-        </section>
+          </section>
+        ) : (
+          <WorkspaceLoader label="Loading your workspace" fullPage />
+        )}
       </AppLayout>
     );
   if (

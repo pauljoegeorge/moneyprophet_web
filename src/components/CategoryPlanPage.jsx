@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Form } from "react-final-form";
 import moment from "moment";
 import WorkspacePage, { MonthNavigation } from "./WorkspacePage";
+import WorkspaceLoader from "./WorkspaceLoader";
 import PlanForm from "./CategoryPlan/PlanForm";
 import { addDateToUrl, appendUrlToDate, formattedDate } from "../utils/utils";
 import { getBeginningOfMonth } from "../utils/date";
@@ -18,7 +19,7 @@ export default function CategoryPlanPage({
   browseMode,
 }) {
   const [month, setMonth] = useState(() => addDateToUrl());
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [editing, setEditing] = useState(!browseMode);
   const load = async () => {
@@ -35,6 +36,7 @@ export default function CategoryPlanPage({
     load();
   }, [month]);
   const changeMonth = (direction) => {
+    setLoading(true);
     const next = formattedDate(
       moment(month).add(direction === "next" ? 1 : -1, "months")
     );
@@ -52,17 +54,20 @@ export default function CategoryPlanPage({
           month={month}
           onChange={changeMonth}
           previousDisabled={month === getBeginningOfMonth()}
+          disabled={loading || isLoading}
         />
       }
     >
-      {error ? (
+      {loading && <WorkspaceLoader label={`Loading ${title.toLowerCase()}`} />}
+      {!loading && error && (
         <div className="workspace-card workspace-empty">
           <p>Couldn’t load your categories.</p>
           <button className="workspace-button" type="button" onClick={load}>
             Try again
           </button>
         </div>
-      ) : (
+      )}
+      {!loading && !error && (
         <Form
           initialValues={{ [fieldName]: entries }}
           onSubmit={(values) => actions.updateExpenseCategories(values, month)}
@@ -73,7 +78,6 @@ export default function CategoryPlanPage({
               month={month}
               fieldName={fieldName}
               amountKey={amountKey}
-              loading={loading}
               isLoading={isLoading}
               editing={editing}
               setEditing={setEditing}

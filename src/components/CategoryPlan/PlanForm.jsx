@@ -13,7 +13,6 @@ export default function PlanForm({
   month,
   fieldName,
   amountKey,
-  loading,
   isLoading,
   editing,
   setEditing,
@@ -26,11 +25,7 @@ export default function PlanForm({
   const rows = values[fieldName] || [];
   const reorder = usePlanReorder(rows, (next) => form.change(fieldName, next));
   return (
-    <form
-      ref={reorder.container}
-      onSubmit={handleSubmit}
-      aria-busy={loading || isLoading}
-    >
+    <form ref={reorder.container} onSubmit={handleSubmit} aria-busy={isLoading}>
       <ReorderFeedback reorder={reorder} rows={rows} />
       <PlanSummary
         rows={rows}
@@ -48,7 +43,7 @@ export default function PlanForm({
           pristine={pristine}
           browseMode={browseMode}
         />
-        {!loading && !editing && rows.length > 0 && (
+        {!editing && rows.length > 0 && (
           <PlanBrowseList
             rows={rows}
             title={title}
@@ -59,7 +54,6 @@ export default function PlanForm({
         )}
         <PlanEditor
           editing={editing}
-          loading={loading}
           isLoading={isLoading}
           rows={rows}
           fieldName={fieldName}
@@ -69,12 +63,7 @@ export default function PlanForm({
           valid={valid}
           reorder={reorder}
         />
-        {!editing && loading && (
-          <p className="workspace-empty" role="status">
-            Loading categories…
-          </p>
-        )}
-        {!editing && !loading && rows.length === 0 && (
+        {!editing && rows.length === 0 && (
           <div className="workspace-empty">
             <p>No categories yet. Add your first category to start planning.</p>
             <button
@@ -95,7 +84,6 @@ PlanForm.propTypes = {
   month: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
   amountKey: PropTypes.string.isRequired,
-  loading: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   editing: PropTypes.bool.isRequired,
   setEditing: PropTypes.func.isRequired,

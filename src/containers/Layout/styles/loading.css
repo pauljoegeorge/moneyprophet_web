@@ -1,0 +1,27 @@
+.money-workspace .workspace-loading {
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+}
+.money-workspace .workspace-loading-page {
+  min-height: max(320px, calc(100dvh - 220px));
+}
+.money-workspace .workspace-loading-spinner {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: workspace-loading-spin 0.8s linear infinite;
+}
+@keyframes workspace-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .money-workspace .workspace-loading-spinner {
+    animation: none;
+  }
+}

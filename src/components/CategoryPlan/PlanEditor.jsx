@@ -7,7 +7,6 @@ import PlanRowFields from "./PlanRowFields";
 
 export default function PlanEditor({
   editing,
-  loading,
   isLoading,
   rows,
   fieldName,
@@ -19,35 +18,29 @@ export default function PlanEditor({
 }) {
   return (
     <div hidden={!editing}>
-      {loading && (
-        <p className="workspace-empty" role="status">
-          Loading categories…
-        </p>
-      )}
-      {!loading && rows.length === 0 && (
+      {rows.length === 0 && (
         <p className="workspace-empty">Start with your first category.</p>
       )}
-      {!loading &&
-        rows.map((row, index) => (
-          <SortablePlanRow
-            key={row.uid || row.category_uid || index}
-            row={row}
+      {rows.map((row, index) => (
+        <SortablePlanRow
+          key={row.uid || row.category_uid || index}
+          row={row}
+          index={index}
+          disabled={isLoading || rows.length < 2}
+          reorder={reorder}
+        >
+          <PlanRowFields
+            fieldName={fieldName}
             index={index}
-            disabled={loading || isLoading || rows.length < 2}
-            reorder={reorder}
-          >
-            <PlanRowFields
-              fieldName={fieldName}
-              index={index}
-              amountKey={amountKey}
-            />
-          </SortablePlanRow>
-        ))}
+            amountKey={amountKey}
+          />
+        </SortablePlanRow>
+      ))}
       <div className="workspace-form-footer">
         <button
           type="button"
           className="workspace-button"
-          disabled={loading || isLoading}
+          disabled={isLoading}
           onClick={() =>
             form.change(fieldName, [
               ...rows,
@@ -58,10 +51,7 @@ export default function PlanEditor({
           <Plus size={16} />
           Add category
         </button>
-        <PrimaryButton
-          type="submit"
-          disabled={pristine || !valid || loading || isLoading}
-        >
+        <PrimaryButton type="submit" disabled={pristine || !valid || isLoading}>
           {isLoading ? "Saving…" : "Save changes"}
         </PrimaryButton>
       </div>
@@ -70,7 +60,6 @@ export default function PlanEditor({
 }
 PlanEditor.propTypes = {
   editing: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   rows: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   fieldName: PropTypes.string.isRequired,

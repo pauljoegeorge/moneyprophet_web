@@ -32,14 +32,19 @@ WorkspacePage.propTypes = {
   children: PropTypes.node,
   focused: PropTypes.bool,
 };
-export function MonthNavigation({ month, onChange, previousDisabled = false }) {
+export function MonthNavigation({
+  month,
+  onChange,
+  previousDisabled = false,
+  disabled = false,
+}) {
   return (
     <div className="workspace-month">
       <button
         type="button"
         className="workspace-icon-button"
         aria-label="Previous month"
-        disabled={previousDisabled}
+        disabled={previousDisabled || disabled}
         onClick={() => onChange("previous")}
       >
         <ChevronLeft size={18} />
@@ -49,6 +54,7 @@ export function MonthNavigation({ month, onChange, previousDisabled = false }) {
         type="button"
         className="workspace-icon-button"
         aria-label="Next month"
+        disabled={disabled}
         onClick={() => onChange("next")}
       >
         <ChevronRight size={18} />
@@ -60,6 +66,7 @@ MonthNavigation.propTypes = {
   month: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   previousDisabled: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 WorkspacePage.defaultProps = {
@@ -68,4 +75,8 @@ WorkspacePage.defaultProps = {
   children: null,
   focused: false,
 };
-MonthNavigation.defaultProps = { month: undefined, previousDisabled: false };
+MonthNavigation.defaultProps = {
+  month: undefined,
+  previousDisabled: false,
+  disabled: false,
+};
