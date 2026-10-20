@@ -8,6 +8,7 @@ import Input from "./Input";
 import CategoryIcon from "./CategoryIcon";
 import CategoryIconPicker from "./CategoryIconPicker";
 import PrivateTotal from "./PrivateTotal";
+import CategoryBudgetProgress from "./CategoryBudgetProgress";
 import { PrimaryButton } from "./Button";
 import { useValidations } from "../utils/validation";
 import { addDateToUrl, appendUrlToDate, formattedDate } from "../utils/utils";
@@ -44,7 +45,7 @@ export default function CategoryPlanPage({
   }, [month]);
   const changeMonth = (direction) => {
     const next = formattedDate(
-      moment(month).add(direction === "next" ? 1 : -1, "months"),
+      moment(month).add(direction === "next" ? 1 : -1, "months")
     );
     appendUrlToDate(next);
     setMonth(next);
@@ -78,7 +79,7 @@ export default function CategoryPlanPage({
             const rows = values[fieldName] || [];
             const total = rows.reduce(
               (sum, row) => sum + (Number(row[amountKey]) || 0),
-              0,
+              0
             );
             return (
               <form onSubmit={handleSubmit} aria-busy={loading || isLoading}>
@@ -92,7 +93,11 @@ export default function CategoryPlanPage({
                     <PrivateTotal
                       key={amountKey}
                       value={formattedCurrency(total)}
-                      label={amountKey === "budget" ? "Monthly budget" : "Monthly fixed bills"}
+                      label={
+                        amountKey === "budget"
+                          ? "Monthly budget"
+                          : "Monthly fixed bills"
+                      }
                       storageKey={`mp-plan-${amountKey}-total-private`}
                     />
                     <p>
@@ -160,7 +165,14 @@ export default function CategoryPlanPage({
                       aria-label={`${title} categories`}
                     >
                       {rows.map((row, index) => (
-                        <li key={row.uid || index}>
+                        <li
+                          key={row.uid || index}
+                          className={
+                            amountKey === "budget"
+                              ? "workspace-budget-with-progress"
+                              : undefined
+                          }
+                        >
                           <span className="workspace-budget-category">
                             <span className="workspace-settings-icon">
                               <CategoryIcon name={row.icon} />
@@ -180,15 +192,22 @@ export default function CategoryPlanPage({
                                 requestAnimationFrame(() =>
                                   document
                                     .getElementById(
-                                      `${fieldName}[${index}].name`,
+                                      `${fieldName}[${index}].name`
                                     )
-                                    ?.focus(),
+                                    ?.focus()
                                 );
                               }}
                             >
                               <Pencil size={16} />
                             </button>
                           </span>
+                          {amountKey === "budget" && (
+                            <CategoryBudgetProgress
+                              name={row.name || "Unnamed category"}
+                              budget={row.budget}
+                              spent={row.total_expense}
+                            />
+                          )}
                         </li>
                       ))}
                     </ul>

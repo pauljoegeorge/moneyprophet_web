@@ -1069,6 +1069,41 @@ body:has(.money-workspace) .Toastify__toast-icon svg {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+.money-workspace .workspace-budget-list .workspace-budget-with-progress {
+  flex-wrap: wrap;
+}
+.money-workspace .workspace-budget-progress {
+  flex-basis: 100%;
+  min-width: 0;
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+.money-workspace .workspace-budget-progress-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  overflow-wrap: anywhere;
+}
+.money-workspace .workspace-budget-progress-details strong,
+.money-workspace .workspace-budget-progress-status {
+  color: var(--budget-progress-color);
+}
+.money-workspace .workspace-budget-progress-track {
+  height: 6px;
+  margin: 8px 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--muted);
+}
+.money-workspace .workspace-budget-progress-track > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--budget-progress-color);
+}
 .money-workspace .workspace-plan-navigation {
   display: flex;
   gap: 6px;
