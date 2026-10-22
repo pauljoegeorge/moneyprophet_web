@@ -1,16 +1,12 @@
 export const setExpenseSortParams = (sortParams, field) => {
-  const newSortParams = [...sortParams];
-  for (let i = 0; i < newSortParams.length; i += 1) {
-    if (newSortParams[i].field === field) {
-      newSortParams[i].order =
-        newSortParams[i].order === "asc" ? "desc" : "asc";
-      newSortParams[i].active = true;
-    } else {
-      newSortParams[i].order = "asc";
-      newSortParams[i].active = false;
-    }
-  }
-  return newSortParams;
+  return sortParams.map((param) => ({
+    ...param,
+    active: param.field === field,
+    order:
+      param.field === field && param.active && param.order === "asc"
+        ? "desc"
+        : "asc",
+  }));
 };
 
 export const getDefaultExpenseSortParams = () => {

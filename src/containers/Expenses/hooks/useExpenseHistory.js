@@ -16,6 +16,8 @@ export default function useExpenseHistory() {
   const [sortParams, setSortParams] = useState(getDefaultExpenseSortParams());
   const { actions, expenses, isLoading } = useExpenses([]);
   const { actions: budgetActions, fixedExpenseCategories } = useBudget([]);
+  const { getExpenses } = actions;
+  const activeSort = sortParams.find((param) => param.active);
   const initialValues = { expenses };
   const visibleExpenses = expenses.filter((expense) =>
     [
@@ -46,13 +48,21 @@ export default function useExpenseHistory() {
 
   useEffect(() => {
     if (selectedMonth) {
-      const query = new URLSearchParams(window.location.search);
-      const category = query.get("category") || "";
-      setSortParams(getDefaultExpenseSortParams());
-      actions.getExpenses(selectedMonth, category);
       budgetActions.getExpenseCategories(selectedMonth);
     }
   }, [selectedMonth]);
+
+  useEffect(() => {
+    if (!selectedMonth) return undefined;
+    const category =
+      new URLSearchParams(window.location.search).get("category") || "";
+    return getExpenses(
+      selectedMonth,
+      category,
+      activeSort.field,
+      activeSort.order
+    );
+  }, [selectedMonth, activeSort.field, activeSort.order, getExpenses]);
 
   const handleMonthChange = (direction) => {
     const nextMonth =
@@ -61,12 +71,6 @@ export default function useExpenseHistory() {
         : formattedDate(moment(selectedMonth).subtract(1, "months"));
     appendUrlToDate(nextMonth);
     return setSelectedMonth(nextMonth);
-  };
-
-  const handleSortExpenses = (sortBy, sortOrder) => {
-    const query = new URLSearchParams(window.location.search);
-    const category = query.get("category") || "";
-    actions.getExpenses(selectedMonth, category, sortBy, sortOrder);
   };
 
   const handleExportReport = () => {
@@ -92,7 +96,6 @@ export default function useExpenseHistory() {
     noSearchResults,
     fixedExpenseOptions,
     handleMonthChange,
-    handleSortExpenses,
     handleExportReport,
     handleSubmit,
   };

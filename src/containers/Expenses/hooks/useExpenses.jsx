@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { apiErrorMessage } from "../../../utils/apiError";
 import { get, put, post } from "../../../utils/api";
 import { Notify } from "../../../components/Notify";
@@ -7,16 +7,29 @@ function useExpenses() {
   const [isLoading, setLoading] = useState(false);
   const [expenses, setExpenses] = useState([]);
 
-  const getExpenses = async (
-    month,
-    category = "",
-    sort_by = "",
-    sortOrder = ""
-  ) => {
-    const params = `from=${month}&category=${category}&sort_by=${sort_by}&sort_order=${sortOrder}`;
-    const response = await get(`expenses?${params}`);
-    setExpenses(response);
-  };
+  const getExpenses = useCallback((month, category, sortBy, sortOrder) => {
+    let current = true;
+    const params = new URLSearchParams({
+      from: month,
+      category,
+      sort_by: sortBy,
+      sort_order: sortOrder,
+    });
+    setLoading(true);
+    get(`expenses?${params}`)
+      .then((response) => {
+        if (current) setExpenses(response);
+      })
+      .catch((error) => {
+        if (current) Notify.error(apiErrorMessage(error));
+      })
+      .finally(() => {
+        if (current) setLoading(false);
+      });
+    return () => {
+      current = false;
+    };
+  }, []);
 
   const createExpense = async (values) => {
     try {

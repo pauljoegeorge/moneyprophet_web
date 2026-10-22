@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import { Download } from "lucide-react";
 import PrivateTotal from "../PrivateTotal";
+import budgetRemaining from "./budgetRemaining";
 import { formattedCurrency } from "../../utils/currency";
 
 export default function PlanSummary({
@@ -16,6 +17,9 @@ export default function PlanSummary({
     (sum, row) => sum + (Number(row[amountKey]) || 0),
     0
   );
+  const remaining = budgetRemaining(rows);
+  const remainingLabel = remaining < 0 ? "Over budget" : "Budget left";
+
   return (
     <div className="workspace-plan-summary">
       <div>
@@ -35,6 +39,17 @@ export default function PlanSummary({
           {moment(month).format("MMMM YYYY")}
         </p>
       </div>
+      {amountKey === "budget" && (
+        <div>
+          <span>{remainingLabel}</span>
+          <PrivateTotal
+            value={formattedCurrency(Math.abs(remaining))}
+            label={remainingLabel}
+            storageKey="mp-plan-budget-remaining-private"
+          />
+          <p>After category spending this month</p>
+        </div>
+      )}
       {onExportBudget && (
         <button
           className="workspace-button"

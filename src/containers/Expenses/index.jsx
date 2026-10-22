@@ -26,7 +26,6 @@ function ExpensesContainer() {
     noSearchResults,
     fixedExpenseOptions,
     handleMonthChange,
-    handleSortExpenses,
     handleExportReport,
     handleSubmit,
   } = useExpenseHistory();
@@ -37,8 +36,10 @@ function ExpensesContainer() {
       initialValues={initialValues}
       render={({ handleSubmit: formHandleSubmit, form: { getState } }) => {
         const { pristine, valid, values } = getState();
+        const summaryExpenses = viewMode ? visibleExpenses : values.expenses;
+        const isFiltered = viewMode && search.trim().length > 0;
         const totalExpense = formattedCurrency(
-          values.expenses.reduce(
+          summaryExpenses.reduce(
             (total, expense) => total + Number(expense.amount || 0),
             0
           )
@@ -57,7 +58,8 @@ function ExpensesContainer() {
             >
               <ExpenseHistorySummary
                 totalExpense={totalExpense}
-                expenses={expenses}
+                expenses={summaryExpenses}
+                isFiltered={isFiltered}
                 selectedMonth={selectedMonth}
                 handleMonthChange={handleMonthChange}
               />
@@ -107,7 +109,6 @@ function ExpensesContainer() {
                   <div className="workspace-expense-history">
                     <ExpensesViewMode
                       expenses={visibleExpenses}
-                      handleSortExpenses={handleSortExpenses}
                       sortParams={sortParams}
                       setSortParams={setSortParams}
                     />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { ArrowDropUp, ArrowDropDown } from "@mui/icons-material";
 import { FlexContainer } from "../../components/Container";
@@ -16,12 +16,7 @@ const SORT_LABELS = {
 };
 
 function ExpensesViewMode(props) {
-  const { expenses, handleSortExpenses, sortParams, setSortParams } = props;
-
-  useEffect(() => {
-    const sortParam = sortParams.find((s) => s.active);
-    handleSortExpenses(sortParam.field, sortParam.order);
-  }, [sortParams]);
+  const { expenses, sortParams, setSortParams } = props;
 
   const handleCategoryClick = (field) => {
     const updatedParams = setExpenseSortParams(sortParams, field);
@@ -51,6 +46,7 @@ function ExpensesViewMode(props) {
             <button
               key={param.field}
               type="button"
+              aria-pressed={isActive}
               onClick={() => handleCategoryClick(param.field)}
               style={{
                 display: "inline-flex",
@@ -98,7 +94,9 @@ function ExpensesViewMode(props) {
             <td data-label="Category">
               <span className="category-with-icon">
                 <CategoryIcon name={expense.category_icon} />
-                <PBold tt="none" size="14px" align="left">{expense.category_name}</PBold>
+                <PBold tt="none" size="14px" align="left">
+                  {expense.category_name}
+                </PBold>
               </span>
             </td>
             <td data-label="Amount">
@@ -119,7 +117,6 @@ function ExpensesViewMode(props) {
 
 ExpensesViewMode.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  handleSortExpenses: PropTypes.func.isRequired,
   sortParams: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   setSortParams: PropTypes.func.isRequired,
 };
