@@ -13,7 +13,7 @@ A calm workspace for personal finances: track expenses, plan monthly category bu
 - Expense entry by category or plain text; quick text entry from Overview.
 - Expense history with browse/edit modes, search, sorting, and CSV export.
 - Monthly category budgets and fixed bill planning with category icons.
-- Location-aware expense map, currency preferences, and amount visibility controls.
+- Currency preferences and amount visibility controls.
 - Quiet workspace design with responsive layouts and light/dark workspace themes.
 
 Remaining category budget excludes fixed bills; the overall monthly spending total includes them. Location is included when browser permission is granted, and entries can still be saved without it.
@@ -35,7 +35,6 @@ Open [localhost:3001](http://localhost:3001/). Start the API separately on `http
 | Variable                | Purpose                                                                             |
 | ----------------------- | ----------------------------------------------------------------------------------- |
 | `VITE_API_ROOT`         | API origin, such as `http://localhost:3000`, without `/api/v1` or a trailing slash. |
-| `VITE_GOOGLE_MAPS_KEY`  | Optional browser Maps key for the map. Restrict it to allowed website origins.      |
 | `VITE_GTM_CONTAINER_ID` | Optional Google Tag Manager container. Analytics initializes only when configured.  |
 
 Use `.env.development.local` locally and `.env.production.local` for production. These files are ignored by Git. Restart Vite after configuration changes; rebuild to change production values.
@@ -69,7 +68,7 @@ scripts/
 public/            Icons, social preview, privacy policy, sitemap, robots
 ```
 
-React 19 and Vite power the app. UI uses MUI, Tailwind, styled-components, and Lucide; forms use React Final Form, charts use Recharts, and maps use Leaflet.
+React 19 and Vite power the app. UI uses MUI, Tailwind, styled-components, and Lucide; forms use React Final Form and charts use Recharts.
 
 The Axios client calls `/api/v1/`, adds the saved bearer token, and handles token refresh. Private routes require a saved session; the API must enforce authorization independently. Google redirects to `/sign_in`, then the frontend exchanges the code through the API.
 
@@ -83,7 +82,7 @@ The Axios client calls `/api/v1/`, adds the saved bearer token, and handles toke
 | `/expenses`                  | Expense history                          |
 | `/new`, `/chat` | Manual and text entry          |
 | `/budget`, `/r_expenses`     | Monthly category budgets and fixed bills |
-| `/map`, `/settings`          | Expense map and preferences              |
+| `/settings`                 | Preferences                              |
 | `/privacy.html`              | Static privacy policy                    |
 
 Legacy report and planning routes are retained, including insights and forecasts; some are not shown in navigation.

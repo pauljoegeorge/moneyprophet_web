@@ -25,10 +25,9 @@ Create `.env.production.local` in the repo:
 
 ```dotenv
 VITE_API_ROOT=https://YOUR_PRODUCTION_API_DOMAIN
-VITE_GOOGLE_MAPS_KEY=YOUR_BROWSER_MAPS_KEY
 ```
 
-Use the actual HTTPS API origin without `/api/v1`. Omit the Maps key if not using maps. Configure an optional `VITE_GTM_CONTAINER_ID` if needed.
+Use the actual HTTPS API origin without `/api/v1`. Configure an optional `VITE_GTM_CONTAINER_ID` if needed.
 
 ```bash
 npm ci
@@ -126,11 +125,9 @@ GOOGLE_REDIRECT_URI = "https://app.example.com/sign_in"
 
 Deploy/restart the API. Ensure API CORS permits `https://app.example.com` and retain any other required origins. OAuth credentials and client secrets stay on the server.
 
-For maps, allow `https://app.example.com/*` in the browser Maps key's website restrictions and enable the APIs required by your map configuration.
-
 ## 8. Verify and switch links
 
-Check the landing page, Google sign-in/callback, logout, expense creation, budgets, fixed bills, currency settings, and maps. Refresh `/dashboard` and `/expenses` directly. Check privacy, icons, and sitemap. View source at `/`: it should contain the landing text without JavaScript. The sign-in HTML and workspace shell should carry `noindex`.
+Check the landing page, Google sign-in/callback, logout, expense creation, budgets, fixed bills, and currency settings. Refresh `/dashboard` and `/expenses` directly. Check privacy, icons, and sitemap. View source at `/`: it should contain the landing text without JavaScript. The sign-in HTML and workspace shell should carry `noindex`.
 
 Once the new app works, deploy the updated portfolio forwarding routes. They use `VITE_MONEY_PROPHET_URL`, defaulting to `https://app.example.com`.
 

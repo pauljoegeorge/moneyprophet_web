@@ -26,6 +26,6 @@ Paths above are relative to the repository root. Work in the repository that own
 
 ## Layout and module boundaries
 
-Follow the Quiet workspace design and reuse existing shared components and CSS tokens. Center focused pages at 880px and reports/maps at 1250px.
+Follow the Quiet workspace design and reuse existing shared components and CSS tokens. Center focused pages at 880px and reports at 1250px.
 
 Keep page wrappers and feature entry points small. Put feature-local components, hooks, and helpers in focused subfolders. Use shared components only when the responsibility is shared across features. Workspace and marketing CSS entry files import focused style modules in cascade order.

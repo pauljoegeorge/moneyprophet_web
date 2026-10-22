@@ -11,7 +11,6 @@ import ExpenseCategoriesRoutes from "./pages/ExpenseCategories/routes";
 import Expenses from "./pages/Expenses/routes";
 import RecurrentExpensesRoutes from "./pages/RecurrentExpenses/routes";
 import TransactionsRoutes from "./pages/Transaction/routes";
-import MapRoutes from "./pages/Map/routes";
 import SettingsRoutes from "./pages/Settings/routes";
 import ForecastsRoutes from "./pages/Forecasts/routes";
 import LayoutContainer from "./containers/Layout";
@@ -30,7 +29,6 @@ const routes = [
   ...TransactionsRoutes,
   ...Expenses,
   ...RecurrentExpensesRoutes,
-  ...MapRoutes,
   ...SettingsRoutes,
 
   ...ForecastsRoutes,

@@ -101,23 +101,6 @@
 .money-workspace .MuiMenuItem-root.Mui-selected:hover {
   background: var(--muted);
 }
-.money-workspace .leaflet-container {
-  background: var(--muted);
-}
-.money-workspace .leaflet-popup-content-wrapper,
-.money-workspace .leaflet-popup-tip,
-.money-workspace .leaflet-bar a {
-  background: var(--card);
-  color: var(--foreground);
-}
-.money-workspace .workspace-map-pin {
-  width: 22px;
-  height: 22px;
-  background: var(--primary);
-  border: 3px solid var(--card);
-  border-radius: 50%;
-  box-shadow: 0 2px 8px #0003;
-}
 body:has(.money-workspace) .Toastify__toast {
   background: #fff;
   color: #22352c;

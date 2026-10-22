@@ -22,7 +22,6 @@ const iconBtnSx = {
 function NavigationBar() {
   const [open, setOpen] = useState(() => window.innerWidth >= 1200);
   const { mode, toggleMode } = useThemeMode();
-  const isMapPage = window.location.pathname.includes("/map") && !open;
 
   const muiTheme = createTheme({ palette: { mode } });
 
@@ -96,7 +95,7 @@ function NavigationBar() {
           <ProfileMenu />
         </Toolbar>
       </AppBar>
-      {!isMapPage && <NavDrawer open={open} handleDrawer={handleDrawer} />}
+      <NavDrawer open={open} handleDrawer={handleDrawer} />
     </ThemeProvider>
   );
 }

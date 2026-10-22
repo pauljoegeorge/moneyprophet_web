@@ -18,11 +18,6 @@ function useExpenses() {
     setExpenses(response);
   };
 
-  const getGroupedExpenses = async (month) => {
-    const response = await get(`expenses/map_view?from=${month}`);
-    setExpenses(response);
-  };
-
   const createExpense = async (values) => {
     try {
       setLoading(true);
@@ -93,7 +88,6 @@ function useExpenses() {
     expenses,
     actions: {
       getExpenses,
-      getGroupedExpenses,
       updateExpenses,
       createExpense,
       exportExpenses,

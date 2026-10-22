@@ -7,7 +7,6 @@ import {
   LayoutDashboard,
   Wallet,
   ChartPie,
-  MapPin,
   Settings,
   Plus,
   Menu,
@@ -25,7 +24,6 @@ const workspace = [
   { label: "Expenses", path: "/expenses", icon: Wallet },
   { label: "Add expense", path: "/new", icon: Plus },
   { label: "Spending plan", path: "/budget", icon: ChartPie },
-  { label: "Map", path: "/map", icon: MapPin },
 ];
 const tools = [{ label: "Settings", path: "/settings", icon: Settings }];
 

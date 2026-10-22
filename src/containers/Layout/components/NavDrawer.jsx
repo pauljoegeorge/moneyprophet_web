@@ -9,7 +9,6 @@ import {
   BalanceOutlined,
   ReceiptLong,
   PostAdd,
-  PinDrop,
   Settings,
   AccountBalance,
   AutoAwesome,
@@ -26,7 +25,6 @@ function NavDrawer(props) {
     { name: "Dashboard", icon: DashboardIcon, href: "/dashboard" },
     { name: "Expenses", icon: ReceiptLong, href: "/expenses" },
     { name: "Fixed Expenses", icon: AccountBalance, href: "/r_expenses" },
-    { name: "Map", icon: PinDrop, href: "/map" },
   ];
   const managementItems = [
     { name: "Chat", icon: AutoAwesome, href: "/chat" },

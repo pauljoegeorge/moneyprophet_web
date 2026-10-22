@@ -36,9 +36,6 @@
   font: inherit;
   cursor: pointer;
 }
-.money-workspace .workspace-map-card {
-  overflow: hidden;
-}
 .money-workspace input:not([type="checkbox"]),
 .money-workspace textarea {
   border: 1px solid var(--input);
