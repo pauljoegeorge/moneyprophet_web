@@ -1,0 +1,35 @@
+.mp-analytics {
+  position: relative;
+  z-index: 1200;
+  padding: 12px 20px;
+  background: #f5f6f2;
+  color: #22352c;
+  border-block: 1px solid #b7c9bd;
+  font:
+    14px/1.6 system-ui,
+    sans-serif;
+}
+.mp-analytics p {
+  margin: 0 0 10px;
+  max-width: 760px;
+}
+.mp-analytics div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.mp-analytics button,
+.mp-analytics a {
+  color: #22352c;
+  text-decoration: underline;
+}
+.mp-analytics button {
+  min-height: 44px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.mp-analytics button:focus-visible,
+.mp-analytics a:focus-visible {
+  outline: 3px solid #35674d;
+  outline-offset: 3px;
+}

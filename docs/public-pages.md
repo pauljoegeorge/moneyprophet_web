@@ -10,3 +10,6 @@ Read before changing the landing page, marketing copy, SEO metadata, public rout
 - Update documentation when commands, environment variables, routes, or hosting assumptions change. Never edit generated build output as the permanent fix.
 
 For hosting, OAuth, or CloudFront configuration changes, also read the [deployment guide](deployment.md).
+
+For SEO release checks, positioning, and ongoing measurement, see
+[search and AI discovery](search-discovery.md).

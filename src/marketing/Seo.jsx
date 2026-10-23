@@ -8,7 +8,7 @@ export default function Seo() {
     const home = pathname === "/";
     let title = "Your workspace — Money Prophet";
     if (pathname === "/sign_in") title = "Sign in — Money Prophet";
-    if (home) title = "Money Prophet — Expense tracking & monthly budgets";
+    if (home) title = "Money Prophet — Expense Tracker & Budget Tracking App";
     document.title = title;
     const setMeta = (name, content) => {
       let tag = document.head.querySelector(`meta[name="${name}"]`);
@@ -23,8 +23,8 @@ export default function Seo() {
     setMeta(
       "description",
       home
-        ? "Track daily expenses, plan monthly category budgets and fixed bills, and see what’s left to spend. Find a calmer way to manage money with Money Prophet."
-        : "Sign in to your Money Prophet personal finance workspace.",
+        ? "Track daily expenses, set monthly category budgets, and plan regular bills with Money Prophet. A personal budget tracking app with no bank connection needed."
+        : "Sign in to your Money Prophet personal finance workspace."
     );
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.href = origin + (home ? "/" : pathname);

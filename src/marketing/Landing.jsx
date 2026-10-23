@@ -5,6 +5,7 @@ import Contact from "./Contact";
 import Questions from "./Questions";
 import Brand from "./Brand";
 import Preview from "./Preview";
+import StructuredData from "./StructuredData";
 
 export { default as Brand } from "./Brand";
 export { default as Preview } from "./Preview";
@@ -12,6 +13,7 @@ export { default as Preview } from "./Preview";
 export default function Landing() {
   return (
     <div className="mp-public mp-landing">
+      <StructuredData />
       <a className="mp-skip" href="#main">
         Skip to content
       </a>
@@ -36,14 +38,16 @@ export default function Landing() {
               <span /> A little clarity, every day
             </p>
             <h1>
-              Your money.
-              <br />A little more
+              Track expenses.
               <br />
-              <em>understood.</em>
+              Plan budgets.
+              <br />
+              <em>Find clarity.</em>
             </h1>
             <p className="mp-lead">
-              Track everyday spending. Make a plan for the month. Know what’s
-              left for you.
+              Money Prophet is an expense tracker and budget tracking app for
+              everyday spending, monthly category budgets, and regular bills.
+              See what’s left to spend without connecting your bank.
             </p>
             <div className="mp-hero-actions">
               <a className="mp-cta" href="/sign_in">
@@ -86,19 +90,19 @@ export default function Landing() {
               [
                 Wallet,
                 "01",
-                "Keep track",
+                "Track daily expenses",
                 "Add a purchase by category or in a few words with optional AI entry.",
               ],
               [
                 ChartPie,
                 "02",
-                "Make room",
+                "Plan monthly budgets",
                 "Set monthly category budgets and plan for your regular bills.",
               ],
               [
                 MessageSquare,
                 "03",
-                "See the picture",
+                "Review spending",
                 "Review your spending and what’s left in your category budgets.",
               ],
             ].map(([Icon, number, title, body]) => (

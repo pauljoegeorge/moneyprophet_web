@@ -6,9 +6,9 @@ export default function Questions() {
       <div className="mp-section-heading">
         <p className="mp-eyebrow">Good to know</p>
         <h2 id="faq-title">
-          Simple from
+          Expense tracking
           <br />
-          the start.
+          questions.
         </h2>
         <p>
           Available on the web.
@@ -17,6 +17,24 @@ export default function Questions() {
         </p>
       </div>
       <div className="mp-faq-list">
+        <details>
+          <summary>What is Money Prophet?</summary>
+          <p>
+            Money Prophet is a web app for tracking personal expenses and
+            monthly budgets. Record purchases, organize spending by category,
+            plan regular bills, and review spending reports. It suits people who
+            want to enter their own expenses without connecting a bank account.
+          </p>
+        </details>
+        <details>
+          <summary>How do I track expenses against a monthly budget?</summary>
+          <p>
+            Sign in with Google, choose your currency, and set monthly category
+            budgets. Add purchases with an amount and category, then review your
+            spending and remaining category budgets. Plan recurring bills
+            alongside everyday spending to see more of your monthly commitments.
+          </p>
+        </details>
         <details id="free-plan">
           <summary>What’s included for free?</summary>
           <p>

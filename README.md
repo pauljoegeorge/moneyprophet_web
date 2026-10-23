@@ -129,3 +129,6 @@ The script builds, checks the generated HTML, uploads to S3, invalidates all Clo
 ## Public contact and support
 
 The landing page includes `/#contact`, also linked from the workspace. Visitors can submit a name, email, topic, and message without signing in. The API forwards accepted messages to Slack and enforces shared abuse limits. Deploy the API contact migration and configure its server-only `CONTACT_SLACK_WEBHOOK_URL` before releasing this form; see `../money_prophet/docs/contact.md`. No new browser environment variable or hosting rewrite is needed. The form discloses Slack processing and preserves failed submissions for retry.
+
+For optional web engagement tracking and the required GTM/GA4 setup, see
+[website analytics](docs/analytics.md).

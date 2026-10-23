@@ -1,4 +1,5 @@
 import axios from "axios";
+import { trackApiSuccess } from "../analytics/events";
 import { requestAiConsent } from "./aiConsent";
 import {
   getCurrentUser,
@@ -137,6 +138,7 @@ api.interceptors.response.use(
 const get = async (url) => {
   try {
     const response = await api.get(url);
+    trackApiSuccess("get", url);
     return response.data;
   } catch (error) {
     console.error("API GET request failed", error.response?.status);
@@ -147,6 +149,7 @@ const get = async (url) => {
 const post = async (url, data, headers = {}) => {
   try {
     const response = await api.post(url, data, headers);
+    trackApiSuccess("post", url);
     return response.data;
   } catch (error) {
     console.error("API POST request failed", error.response?.status);
@@ -157,6 +160,7 @@ const post = async (url, data, headers = {}) => {
 const put = async (url, data) => {
   try {
     const response = await api.put(url, data);
+    trackApiSuccess("put", url);
     return response.data;
   } catch (error) {
     console.error("API PUT request failed", error.response?.status);
