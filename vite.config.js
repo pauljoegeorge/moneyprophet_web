@@ -16,5 +16,7 @@ export default defineConfig({
   },
   build: {
     outDir: "build",
+    // Preserve the browser targets used before the Vite security upgrade.
+    target: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
   },
 });
