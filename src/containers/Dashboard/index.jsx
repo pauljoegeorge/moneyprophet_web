@@ -68,17 +68,19 @@ export default function DashboardContainer() {
               activeCats={metrics.activeCats}
             />
           </div>
-          <FrequentPurchases
-            purchases={insights.popular_transactions}
-            money={money}
-          />
-          <RecentExpenses
-            month={month}
-            money={money}
-            recent={dashboard.recent}
-            recentError={dashboard.recentError}
-            onRetry={onRetry}
-          />
+          <div className="workspace-panels workspace-panels--purchases">
+            <FrequentPurchases
+              purchases={insights.popular_transactions}
+              money={money}
+            />
+            <RecentExpenses
+              month={month}
+              money={money}
+              recent={dashboard.recent}
+              recentError={dashboard.recentError}
+              onRetry={onRetry}
+            />
+          </div>
           {!hidden && <DashboardReports insights={insights} />}
         </>
       )}

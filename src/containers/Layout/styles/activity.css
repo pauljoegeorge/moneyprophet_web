@@ -92,3 +92,7 @@
   outline: 2px solid var(--ring);
   outline-offset: 3px;
 }
+
+.money-workspace .workspace-panels--purchases {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+}
