@@ -177,3 +177,16 @@ Run `node --test scripts/oauth.test.mjs` to check browser-state binding and PKCE
 ## Onboarding rollout
 
 Deploy the API with `GET /api/v1/users/me`, the `expense_start_date` user field, and the onboarding configuration/completion endpoints before releasing this web bundle. New accounts are routed to `/onboarding`; completed accounts continue to their requested workspace page. Settings and sign-out remain accessible during setup. The existing extensionless-route rewrite already serves `/onboarding` through the noindex `/app.html` shell. Verify a new-account setup, optional bill skipping, failed completion with retained choices, reloads, and direct Overview links earlier than the signup month before release.
+
+## Session revocation rollout
+
+Deploy the API's `AddSessionIdToRefreshTokens` migration and logout endpoint before
+this web bundle. Web sign-out calls `POST /api/v1/auth/logout` with the refresh token
+and clears local credentials after confirmed revocation. A failed request shows an
+error and leaves sign-out available for retry. Revocation affects only this session;
+existing iOS clients and other sessions keep their current contracts and behavior.
+Outstanding refresh responses and API retries are discarded after a session change.
+Existing access JWTs retain their one-hour expiry. See the API's `docs/security.md`.
+
+Run `node --test scripts/session-refresh.test.mjs scripts/sign-out.test.mjs scripts/oauth.test.mjs scripts/analytics.test.mjs`
+before release, and verify real sign-out, offline retry, and multiple-tab behavior.

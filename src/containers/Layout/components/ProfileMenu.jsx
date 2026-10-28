@@ -4,21 +4,20 @@ import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import { AccountCircle } from "@mui/icons-material";
 import { PBold } from "../../../components/Text";
+import { useSignOut } from "../../../utils/useSignOut";
+import SignOutProgress from "../../../components/SignOutProgress";
 
 function ProfileMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { logout, pending } = useSignOut();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    window.location.href = "/sign_in";
-  };
-
   return (
     <>
+      <SignOutProgress open={pending} />
       <IconButton
         size="large"
         aria-label="account of current user"
@@ -57,7 +56,11 @@ function ProfileMenu() {
       >
         <PBold>Profile</PBold>
         <Divider />
-        <MenuItem onClick={handleLogout} sx={{ margin: "16px 0px 0px 0px" }}>
+        <MenuItem
+          onClick={logout}
+          disabled={pending}
+          sx={{ margin: "16px 0px 0px 0px" }}
+        >
           Logout
         </MenuItem>
       </Menu>

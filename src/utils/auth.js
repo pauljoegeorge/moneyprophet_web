@@ -1,3 +1,16 @@
+export function withSessionLock(work) {
+  const locks = globalThis.navigator?.locks;
+  return locks
+    ? locks.request("mp-session-refresh", work)
+    : Promise.resolve().then(work);
+}
+
+export const getSessionVersion = () => localStorage.getItem("sessionVersion");
+
+export const invalidateSession = () => {
+  localStorage.setItem("sessionVersion", crypto.randomUUID());
+};
+
 export const saveAuthToken = (authToken) =>
   localStorage.setItem("authToken", authToken);
 
@@ -9,10 +22,15 @@ export const saveRefreshToken = (refreshToken) =>
 export const getRefreshToken = () => localStorage.getItem("refreshToken");
 
 export const clearTokens = () => {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
-  if (user?.email) sessionStorage.removeItem(`mp-onboarding:${user.email}`);
+  invalidateSession();
   localStorage.removeItem("authToken");
   localStorage.removeItem("refreshToken");
+  try {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (user?.email) sessionStorage.removeItem(`mp-onboarding:${user.email}`);
+  } catch {
+    // Corrupt profile data must not prevent removal of session credentials.
+  }
   localStorage.removeItem("currentUser");
 };
 

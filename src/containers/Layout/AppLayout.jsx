@@ -16,8 +16,10 @@ import {
   LogOut,
 } from "lucide-react";
 import { useThemeMode } from "../../contexts/ThemeContext";
-import { clearTokens, getCurrentUser } from "../../utils/auth";
+import { getCurrentUser } from "../../utils/auth";
 import "./workspace.css";
+import { useSignOut } from "../../utils/useSignOut";
+import SignOutProgress from "../../components/SignOutProgress";
 
 const workspace = [
   { label: "Overview", path: "/dashboard", icon: LayoutDashboard },
@@ -29,6 +31,7 @@ const tools = [{ label: "Settings", path: "/settings", icon: Settings }];
 
 export default function AppLayout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { logout, pending: signingOut } = useSignOut();
   const { mode, toggleMode } = useThemeMode();
   const { pathname } = useLocation();
   const user = getCurrentUser();
@@ -83,6 +86,7 @@ export default function AppLayout({ children }) {
         shape: { borderRadius: 10 },
       })}
     >
+      <SignOutProgress open={signingOut} />
       <div className="money-workspace">
         {menuOpen && (
           <button
@@ -127,13 +131,11 @@ export default function AppLayout({ children }) {
           <button
             className="workspace-nav"
             type="button"
-            onClick={() => {
-              clearTokens();
-              window.location.href = "/sign_in";
-            }}
+            onClick={logout}
+            disabled={signingOut}
           >
             <LogOut size={18} aria-hidden="true" />
-            Sign out
+            {signingOut ? "Signing out…" : "Sign out"}
           </button>
         </aside>
         <div className="workspace-body">

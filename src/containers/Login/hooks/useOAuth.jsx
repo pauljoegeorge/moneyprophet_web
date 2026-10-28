@@ -3,6 +3,8 @@ import { beginOAuth, rememberOAuth, consumeOAuth } from "../../../utils/oauth";
 import { get, post, put } from "../../../utils/api";
 import {
   saveAuthToken,
+  invalidateSession,
+  withSessionLock,
   getAuthToken,
   saveRefreshToken,
   saveCurrentUser,
@@ -37,10 +39,13 @@ function useOAuth() {
       });
       const { token, refresh_token: refreshToken, user } = response;
       if (!token) throw new Error("Sign-in did not return a session");
-      saveAuthToken(token);
-      if (refreshToken) saveRefreshToken(refreshToken);
-      saveCurrentUser(user);
-      setToken(token);
+      await withSessionLock(() => {
+        invalidateSession();
+        saveAuthToken(token);
+        if (refreshToken) saveRefreshToken(refreshToken);
+        saveCurrentUser(user);
+        setToken(token);
+      });
     } finally {
       setLoading(false);
     }
