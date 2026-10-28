@@ -75,7 +75,7 @@ export default function QuickExpense({ onSaved }) {
         onClick={() => setOpen(true)}
       >
         <MessageCirclePlus size={21} />
-        Add by text
+        Quick add expense
       </button>
       <Dialog
         open={open}
@@ -104,7 +104,7 @@ export default function QuickExpense({ onSaved }) {
             <span className="workspace-quick-mark">
               <Sprout size={20} />
             </span>
-            <h2 id="quick-expense-title">Quick expense</h2>
+            <h2 id="quick-expense-title">Quick add expense</h2>
           </div>
           <details className="workspace-quick-help">
             <summary
@@ -165,7 +165,7 @@ export default function QuickExpense({ onSaved }) {
             </div>
           )}
           <label htmlFor="quick-expense-notes">
-            <span id="quick-expense-label">Expense</span>
+            <span id="quick-expense-label">Describe your expense</span>
             <textarea
               id="quick-expense-notes"
               aria-labelledby="quick-expense-label"
@@ -173,7 +173,7 @@ export default function QuickExpense({ onSaved }) {
               rows={3}
               value={draft}
               disabled={saving}
-              placeholder="Coffee 650"
+              placeholder="e.g. Coffee 650"
               onChange={(event) => {
                 setDraft(event.target.value);
               }}
@@ -188,7 +188,7 @@ export default function QuickExpense({ onSaved }) {
           <div>
             <PrimaryButton type="submit" disabled={saving || !draft.trim()}>
               <Send size={15} />
-              {saving ? "Saving…" : "Save"}
+              {saving ? "Saving…" : "Save expense"}
             </PrimaryButton>
           </div>
         </form>
