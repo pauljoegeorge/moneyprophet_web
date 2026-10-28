@@ -6,6 +6,7 @@ import DashboardSummary from "./components/DashboardSummary";
 import CurrentSpendingStats from "./components/CurrentSpendingStats";
 import SpendingPace from "./components/SpendingPace";
 import DashboardBudgets from "./components/DashboardBudgets";
+import FrequentPurchases from "./components/FrequentPurchases";
 import RecentExpenses from "./components/RecentExpenses";
 import DashboardReports from "./components/DashboardReports";
 import QuickExpense from "./components/QuickExpense";
@@ -67,6 +68,10 @@ export default function DashboardContainer() {
               activeCats={metrics.activeCats}
             />
           </div>
+          <FrequentPurchases
+            purchases={insights.popular_transactions}
+            money={money}
+          />
           <RecentExpenses
             month={month}
             money={money}
