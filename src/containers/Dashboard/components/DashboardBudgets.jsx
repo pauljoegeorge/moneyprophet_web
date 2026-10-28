@@ -15,49 +15,58 @@ export default function DashboardBudgets({ month, hidden, money, activeCats }) {
           No categories to show yet. Start with a budget or your first expense.
         </div>
       ) : (
-        activeCats.slice(0, 5).map((cat) => {
-          const ratio = Number(cat.total_expense) / Number(cat.budget);
-          const pct = cat.budget > 0 ? Math.max(0, ratio * 100) : 0;
-          let progressColor = "var(--primary)";
-          if (pct >= 80) progressColor = "var(--warning)";
-          if (pct > 100) progressColor = "var(--destructive)";
-          return (
-            <Link
-              key={cat.uid || cat.name}
-              className="workspace-budget-row"
-              to={`/expenses?date=${month}&category=${encodeURIComponent(cat.name)}`}
-            >
-              <div className="workspace-budget-label">
-                <span className="category-with-icon">
-                  <CategoryIcon name={cat.icon} />
-                  {cat.name}
-                </span>
-                <span>
-                  {money(cat.total_expense)} /{" "}
-                  {cat.budget > 0 ? money(cat.budget) : "No budget"}
-                </span>
-              </div>
-              {!hidden && (
-                <div className="workspace-track">
-                  <span
-                    style={{
-                      width: `${Math.min(pct, 100)}%`,
-                      background: progressColor,
-                    }}
-                  />
+        <div
+          className="workspace-overview-budgets"
+          role="region"
+          aria-label="Category budgets list"
+          // Keyboard users need to focus this region to scroll with arrow keys.
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+          tabIndex={0}
+        >
+          {activeCats.map((cat) => {
+            const ratio = Number(cat.total_expense) / Number(cat.budget);
+            const pct = cat.budget > 0 ? Math.max(0, ratio * 100) : 0;
+            let progressColor = "var(--primary)";
+            if (pct >= 80) progressColor = "var(--warning)";
+            if (pct > 100) progressColor = "var(--destructive)";
+            return (
+              <Link
+                key={cat.uid || cat.name}
+                className="workspace-budget-row"
+                to={`/expenses?date=${month}&category=${encodeURIComponent(cat.name)}`}
+              >
+                <div className="workspace-budget-label">
+                  <span className="category-with-icon">
+                    <CategoryIcon name={cat.icon} />
+                    {cat.name}
+                  </span>
+                  <span>
+                    {money(cat.total_expense)} /{" "}
+                    {cat.budget > 0 ? money(cat.budget) : "No budget"}
+                  </span>
                 </div>
-              )}
-              {pct > 100 && !hidden && (
-                <div
-                  className="workspace-note"
-                  style={{ color: "var(--destructive)", marginTop: 5 }}
-                >
-                  {money(cat.total_expense - cat.budget)} over budget
-                </div>
-              )}
-            </Link>
-          );
-        })
+                {!hidden && (
+                  <div className="workspace-track">
+                    <span
+                      style={{
+                        width: `${Math.min(pct, 100)}%`,
+                        background: progressColor,
+                      }}
+                    />
+                  </div>
+                )}
+                {pct > 100 && !hidden && (
+                  <div
+                    className="workspace-note"
+                    style={{ color: "var(--destructive)", marginTop: 5 }}
+                  >
+                    {money(cat.total_expense - cat.budget)} over budget
+                  </div>
+                )}
+              </Link>
+            );
+          })}
+        </div>
       )}
     </section>
   );

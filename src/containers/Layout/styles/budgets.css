@@ -96,3 +96,11 @@
 .money-workspace .workspace-plan-navigation a:hover {
   color: var(--primary);
 }
+
+.money-workspace .workspace-overview-budgets {
+  max-height: 340px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+  padding: 4px 8px 4px 4px;
+}
