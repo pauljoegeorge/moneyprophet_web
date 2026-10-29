@@ -13,6 +13,7 @@ import useExpenseHistory from "./hooks/useExpenseHistory";
 function ExpensesContainer() {
   const {
     selectedMonth,
+    category,
     search,
     setSearch,
     viewMode,
@@ -70,15 +71,19 @@ function ExpensesContainer() {
                   isLoading={isLoading}
                   handleExportReport={handleExportReport}
                 />
-                {expenses.length === 0 && (
+                {!isLoading && expenses.length === 0 && (
                   <div className="workspace-empty">
-                    <p>No expenses for this month yet.</p>
+                    <p>
+                      {category
+                        ? `No expenses in “${category}” this month.`
+                        : "No expenses for this month yet."}
+                    </p>
                     <Link className="workspace-button" to="/new">
                       Add your first expense
                     </Link>
                   </div>
                 )}
-                {viewMode && expenses.length > 0 && (
+                {viewMode && (
                   <div className="workspace-list-search">
                     <input
                       className="workspace-search"

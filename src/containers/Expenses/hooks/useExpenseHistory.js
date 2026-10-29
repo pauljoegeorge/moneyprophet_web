@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import moment from "moment";
 import { useExpenses } from "./useExpenses";
+import useExpenseSearch from "./useExpenseSearch";
 import { useBudget } from "../../ExpenseCategories/hooks/useBudget";
 import {
   appendUrlToDate,
@@ -11,10 +12,17 @@ import { getDefaultExpenseSortParams } from "../utils/utils";
 
 export default function useExpenseHistory() {
   const [selectedMonth, setSelectedMonth] = useState();
-  const [search, setSearch] = useState("");
+  const { category, search, setSearch } = useExpenseSearch();
   const [viewMode, setViewMode] = useState(true);
   const [sortParams, setSortParams] = useState(getDefaultExpenseSortParams());
-  const { actions, expenses, isLoading } = useExpenses([]);
+  const { actions, expenses: loadedExpenses, isLoading } = useExpenses([]);
+  const expenses = useMemo(
+    () =>
+      category
+        ? loadedExpenses.filter((expense) => expense.category_name === category)
+        : loadedExpenses,
+    [loadedExpenses, category]
+  );
   const { actions: budgetActions, fixedExpenseCategories } = useBudget([]);
   const { getExpenses } = actions;
   const activeSort = sortParams.find((param) => param.active);
@@ -54,15 +62,19 @@ export default function useExpenseHistory() {
 
   useEffect(() => {
     if (!selectedMonth) return undefined;
-    const category =
-      new URLSearchParams(window.location.search).get("category") || "";
     return getExpenses(
       selectedMonth,
       category,
       activeSort.field,
       activeSort.order
     );
-  }, [selectedMonth, activeSort.field, activeSort.order, getExpenses]);
+  }, [
+    selectedMonth,
+    category,
+    activeSort.field,
+    activeSort.order,
+    getExpenses,
+  ]);
 
   const handleMonthChange = (direction) => {
     const nextMonth =
@@ -83,6 +95,7 @@ export default function useExpenseHistory() {
 
   return {
     selectedMonth,
+    category,
     search,
     setSearch,
     viewMode,
