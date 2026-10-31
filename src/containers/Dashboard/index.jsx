@@ -1,4 +1,5 @@
 import React from "react";
+import WorkspaceLoader from "../../components/WorkspaceLoader";
 import { useAccount } from "../../contexts/AccountContext";
 import useDashboard from "./hooks/useDashboard";
 import DashboardHeader from "./components/DashboardHeader";
@@ -25,11 +26,7 @@ export default function DashboardContainer() {
         hidden={hidden}
         togglePrivacy={dashboard.togglePrivacy}
       />
-      {loading && (
-        <div className="workspace-card workspace-empty" role="status">
-          Loading your overview…
-        </div>
-      )}
+      {loading && <WorkspaceLoader label="Loading your overview" />}
       {!loading && error && (
         <div className="workspace-card" role="alert">
           <p>{error}</p>
